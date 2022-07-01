@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+url='https://raw.githubusercontent.com/alacritty/alacritty/master/alacritty.yml'
+
+f='skel.yml'
+t="${TMPDIR:-/tmp}/alacritty.skel.yml"
+
+touch "$f"
+cp "$f" "$t"
+curl -f "$url" >"$f" || cp "$t" "$f"
