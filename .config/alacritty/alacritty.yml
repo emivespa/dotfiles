@@ -1,0 +1,21 @@
+import:
+  - ~/.config/alacritty/colors/asciinema.yml
+window:
+  dynamic_padding: true
+  startup_mode: Maximized
+font:
+  normal:
+    family: Menlo
+  builtin_box_drawing: false
+bell:
+  duration: 100 # As opposed to default of 0
+selection:
+  semantic_escape_chars: " \t" # Just break on whitespace.
+  save_to_clipboard: true # (PRIMARY selection.)
+live_config_reload: false
+key_bindings: # Disable every way to enter search or vi mode (tmux handles this):
+  - { key: Space,  mods: Shift|Control,  mode: ~Search,  action: None  } # Vi Mode
+  - { key: F,      mods: Control|Shift,  mode: ~Search,  action: None  } # (Windows, Linux, and BSD only)
+  - { key: B,      mods: Control|Shift,  mode: ~Search,  action: None  } # (Windows, Linux, and BSD only)
+  - { key: F,      mods: Command,        mode: ~Search,  action: None  } # (macOS only)
+  - { key: B,      mods: Command,        mode: ~Search,  action: None  } # (macOS only)

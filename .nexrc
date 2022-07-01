@@ -1,0 +1,19 @@
+map gg 1G
+set extended
+set flash
+set ignorecase
+set leftright
+set matchtime=1
+set noautoindent
+set noiclower
+set nonumber
+set report=0
+set ruler
+set searchincr
+set showmatch
+set showmode
+set verbose
+set wrapscan
+
+" Don't prevent running a script while editing it:
+set nolock

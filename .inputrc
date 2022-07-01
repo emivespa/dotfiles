@@ -1,0 +1,13 @@
+set colored-stats on
+set completion-ignore-case on
+set enable-bracketed-paste on
+set mark-symlinked-directories on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set visible-stats on
+
+# vi mode
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-ins-mode-string ""
+set vi-cmd-mode-string "(vi) "
