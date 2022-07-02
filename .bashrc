@@ -49,10 +49,12 @@ PS1+=' \$'
 PS1+="${_reset} "
 export PS1
 
-alias aptc=apt-cache aptg=apt-get
+alias aptc=apt-cache
+alias aptg=apt-get
 alias batsx='BATS_RUN_SKIPPED=true bats'
 alias git='TZ=UTC git' # https://github.com/jessfraz/dotfiles/blob/master/bin/gitdate
-alias py=python py3=python3
+alias py3=python3
+alias py=python
 alias whatzip='zip -r -s 100m' # Split zips for Whatsapp's 100 mb limit.
 alias xo=xdg-open # TODO: move to ~/bin.
 
