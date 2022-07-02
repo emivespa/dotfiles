@@ -23,6 +23,8 @@ man --version >/dev/null && export MANOPT="--no-hyphenation --no-justification"
 # PATH
 #
 # https://git.sr.ht/~sircmpwn/dotfiles/tree/master/item/.profile
+#
+# TODO: prevent repeat elements.
 PATH="${HOME}/bin:${PATH}"                          # personal bins
 # PATH="${HOME}/bin/$(uname -s):${PATH}"              # personal bins by kernel
 PATH="${HOME}/bin/$(uname -s)+$(uname -m):${PATH}"  # personal bins by kernel+arch
