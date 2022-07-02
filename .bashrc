@@ -31,7 +31,7 @@ export GIT_PS1_SHOWUPSTREAM='verbose'  # behind:< ahead:> diverged:<> nodifferen
 # export GIT_PS1_STATESEPARATOR=' '
 export GIT_PS1_COMPRESSSPARSESTATE=1   # sparse:?
 # export GIT_PS1_SHOWCOLORHINTS=1
-export GIT_PS1_HIDE_IF_PWD_IGNORED=1 # Prevents __git_ps1 in every folder if tracking $HOME.
+export GIT_PS1_HIDE_IF_PWD_IGNORED=1
 _style='\[\033[97;100m\]' # fg15;bg8
 _reset='\[\033[0m\]' # style reset
 _err() {
@@ -79,7 +79,7 @@ tmp() {
 	cd "$d" || exit
 }
 
-shopt -s autocd # Yes.
+shopt -s autocd
 
 # nvm
 export NVM_DIR="$HOME/.config/nvm"
