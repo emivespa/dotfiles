@@ -17,6 +17,7 @@ export PAGER=less
 
 # MAN*
 export MANPAGER='less -S -+i' # -+i: case sensitive search.
+>/dev/null 2>&1 command -v manpager && export MANPAGER=manpager
 export MANWIDTH='80'
 man --version >/dev/null && export MANOPT="--no-hyphenation --no-justification"
 
