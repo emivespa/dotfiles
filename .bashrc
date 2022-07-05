@@ -44,7 +44,7 @@ _git() {
 	>/dev/null 2>&1 type __git_ps1 || return
 	printf %s '$(__git_ps1)'
 }
-PS1+="${_style}\$(_err)\${debian_chroot:+(debian_chroot)}\u@\H \W$(_git)" # Note s/h/H/; s/w/W/
+PS1+="${_style}\$(_err)\${debian_chroot:+(debian_chroot)}\u@\H \w$(_git)" # Note s/h/H/
 PS1+=' \$'
 PS1+="${_reset} "
 export PS1
