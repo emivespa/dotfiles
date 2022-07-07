@@ -12,13 +12,6 @@ export EDITOR=vi VISUAL=vi
 export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 export PAGER=less
 
-# MAN*
-man --version >/dev/null 2>&1 && export MANOPT="--no-hyphenation --no-justification"
-MANPAGER='less -S -+i' # -+i: case-sensitive search.
-command -v manpager >/dev/null 2>&1 && MANPAGER=manpager
-export MANPAGER
-export MANWIDTH='80'
-
 # PATH
 #
 # https://git.sr.ht/~sircmpwn/dotfiles/tree/master/item/.profile
@@ -48,6 +41,13 @@ export TERMINAL
 
 # FZF
 export FZF_DEFAULT_OPTS='-i --color=16 --layout=reverse'
+
+# MAN*
+man --version >/dev/null 2>&1 && export MANOPT="--no-hyphenation --no-justification"
+MANPAGER='less -S -+i' # -+i: case-sensitive search.
+command -v manpager >/dev/null 2>&1 && MANPAGER=manpager
+export MANPAGER
+export MANWIDTH='80'
 
 # GO
 #
