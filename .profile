@@ -11,15 +11,13 @@ export BROWSER=firefox
 export EDITOR=vi VISUAL=vi
 export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 export PAGER=less
-# export PAGER=vimpager # TODO
-
-# command -v vimpager >/dev/null && export PAGER=vimpager
 
 # MAN*
-export MANPAGER='less -S -+i' # -+i: case sensitive search.
->/dev/null 2>&1 command -v manpager && export MANPAGER=manpager
-export MANWIDTH='80'
 man --version >/dev/null && export MANOPT="--no-hyphenation --no-justification"
+MANPAGER='less -S -+i' # -+i: case-sensitive search.
+command -v manpager >/dev/null 2>&1 && MANPAGER=manpager
+export MANPAGER
+export MANWIDTH='80'
 
 # PATH
 #
