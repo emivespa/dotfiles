@@ -58,7 +58,7 @@ alias py=python
 alias whatzip='zip -r -s 100m' # Split zips for Whatsapp's 100 mb limit.
 alias xo=xdg-open # TODO: move to ~/bin.
 
->/dev/null 2>&1 command grep --version && {
+command grep --version >/dev/null 2>&1 && {
 	alias grep='grep --color=auto'
 	alias egrep='egrep --color=auto'
 	alias fgrep='fgrep --color=auto'
@@ -66,8 +66,8 @@ alias xo=xdg-open # TODO: move to ~/bin.
 
 _ls='ls'
 # shellcheck disable=2016 # Intentional, >Expressions don't expand in single quotes, use double quotes for that.
->/dev/null 2>&1 command -v x80        && _ls+=' -w $(x80)'
->/dev/null 2>&1 command ls --version  && _ls+=' --color=auto'
+command -v x80        >/dev/null 2>&1 && _ls+=' -w $(x80)'
+command ls --version  >/dev/null 2>&1 && _ls+=' --color=auto'
 # shellcheck disable=2139 # Intentional, >This expands when defined, not when used. Consider escaping.
 alias ls="$_ls"
 

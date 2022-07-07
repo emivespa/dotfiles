@@ -13,7 +13,7 @@ export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 export PAGER=less
 
 # MAN*
-man --version >/dev/null && export MANOPT="--no-hyphenation --no-justification"
+man --version >/dev/null 2>&1 && export MANOPT="--no-hyphenation --no-justification"
 MANPAGER='less -S -+i' # -+i: case-sensitive search.
 command -v manpager >/dev/null 2>&1 && MANPAGER=manpager
 export MANPAGER
