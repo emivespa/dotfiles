@@ -91,7 +91,6 @@ alias dcd='docker compose down'
 alias dcu='docker compose up'
 alias git='TZ=UTC git' # https://github.com/jessfraz/dotfiles/blob/master/bin/gitdate
 alias xo=xdg-open # TODO: move to ~/bin.
-alias vi=$VISUAL # When you install from releases it doesn't get set up as an alternative to 'vi'.
 
 if command grep --version >/dev/null 2>&1; then
 	alias grep='grep --color=auto'
