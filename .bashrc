@@ -15,6 +15,19 @@ if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ] && [ "$TERM_PROGRAM" != 'vscode' ]; t
 	exec tmux new -A -s"${orphan:-x}"
 fi
 
+# Custom config for specific hostnames:
+case "$(uname -n)" in
+	('ip-'*'.ec2.internal') # AWS CloudShell
+		# The CloudShell .bashrc exports AWS_EXECUTION_ENV and I'll overwrite it with
+		# this file so putting this here for compatibility just in case:
+		export AWS_EXECUTION_ENV=CloudShell
+		# CloudShell's tmux doesn't load .tmux.conf for some reason:
+		if test -n "$TMUX"; then
+			tmux source-file "${HOME}.tmux.conf"
+		fi
+		;;
+esac
+
 ################################################################################
 
 # env
@@ -125,13 +138,6 @@ nvimrc() {
 
 # aws
 complete -C '/usr/local/bin/aws_completer' aws
-# The CloudShell .bashrc exports AWS_EXECUTION_ENV and I'll overwrite it with
-# this file so putting this here for compatibility just in case:
-case "$(uname -n)" in
-	('ip-'*'.ec2.internal')
-		export AWS_EXECUTION_ENV=CloudShell
-		;;
-esac
 
 # fzf
 #
