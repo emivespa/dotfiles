@@ -23,7 +23,7 @@ case "$(uname -n)" in
 		export AWS_EXECUTION_ENV=CloudShell
 		# CloudShell's tmux doesn't load .tmux.conf for some reason:
 		if test -n "$TMUX"; then
-			tmux source-file "${HOME}.tmux.conf"
+			tmux source-file "${HOME}/.tmux.conf"
 		fi
 		;;
 esac
