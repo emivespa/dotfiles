@@ -1,0 +1,17 @@
+# Complete opts:
+set colored-completion-prefix on
+set colored-stats on
+set completion-ignore-case off
+set enable-bracketed-paste on
+set mark-symlinked-directories on
+set menu-complete-display-prefix on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set visible-stats on
+
+# vi mode:
+set editing-mode vi
+set show-mode-in-prompt on
+
+C-L: clear-screen
+	# Is a de-facto standard of sorts but doesn't always work everywhere.
