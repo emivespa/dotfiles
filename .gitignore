@@ -1,0 +1,5 @@
+# Safe mode:
+*
+# (Especially important for git tracking $HOME. Otherwise if you forget to
+# git-init a subfolder, you'd be commiting things to this repo without
+# noticing.)
