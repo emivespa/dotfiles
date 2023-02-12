@@ -12,7 +12,7 @@ esac
 # session if there is one:
 if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ] && [ "$TERM_PROGRAM" != 'vscode' ]; then
 	orphan="$(tmux ls | grep -v 'attached' | head -n1 | sed -E 's/:.*//')"
-	exec tmux new -A -s"${orphan:-${RANDOM}}"
+	exec tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
 fi
 
 # Custom config for specific hostnames:
