@@ -8,4 +8,3 @@ else
 	# Having a .bash_profile means your .profile won't load automatically in bash:
 	. "${HOME}/.profile"
 fi
-
