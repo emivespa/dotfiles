@@ -142,6 +142,7 @@ nvimrc() {
 
 # aws
 complete -C '/usr/local/bin/aws_completer' aws
+export SAM_CLI_TELEMETRY=0
 
 # fzf
 #
