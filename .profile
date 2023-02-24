@@ -12,7 +12,7 @@
 
 # standard
 
-export EDITOR=nvim; export VISUAL="$EDITOR"
+export EDITOR=vi; export VISUAL="$EDITOR"
 export LANG=en_US.UTF-8
 export LC_COLLATE=C # Sort asciibetically.
 export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
