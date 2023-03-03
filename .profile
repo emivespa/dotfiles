@@ -45,7 +45,7 @@ fi
 export MANPAGER="vim -R --not-a-term -c'runtime plugin/manpager.vim | MANPAGER' -"
 	# --not-a-term prevents "Reading from stdin..."
 	# Make sure the plugin is loaded, just in case.
-# export MANSECT='1p:1:n:l:8:3p:3:0p:0:2:3posix:3pm:3perl:3am:5:4:9:6:7' # Default but search Np before N.
+export MANSECT='1p:1:n:l:8:3p:3:0p:0:2:3posix:3pm:3perl:3am:5:4:9:6:7' # Default but search Np before N.
 export MANWIDTH='80'
 
 ################################################################################
