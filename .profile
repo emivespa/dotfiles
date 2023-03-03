@@ -29,13 +29,13 @@ export BROWSER
 # https://git.sr.ht/~sircmpwn/dotfiles/tree/master/item/.profile
 #
 # TODO: prevent repeats.
-PATH="${HOME}/bin:${PATH}"                          # personal
-PATH="${HOME}/bin/$(uname -s)+$(uname -m):${PATH}"  # personal by kernel+arch
-PATH="${HOME}/bin/ignore:${PATH}"                   # personal ignored by CVS
-PATH="${HOME}/.local/bin:${PATH}"                   # docker, pip, etc. use this
-PATH="/usr/local/go/bin:${PATH}"                    # go install requires this
-PATH="${CARGO_HOME:-${HOME}/.cargo}/bin:${PATH}"    # rust bins
 PATH="${GOPATH:-${HOME}/go}/bin:${PATH}"            # go bins
+PATH="${CARGO_HOME:-${HOME}/.cargo}/bin:${PATH}"    # rust bins
+PATH="/usr/local/go/bin:${PATH}"                    # go install requires this
+PATH="${HOME}/.local/bin:${PATH}"                   # docker, pip, etc. use this
+PATH="${HOME}/bin/ignore:${PATH}"                   # personal ignored by CVS
+# PATH="${HOME}/bin/$(uname -s)+$(uname -m):${PATH}"  # personal by kernel+arch
+PATH="${HOME}/bin:${PATH}"                          # personal
 export PATH
 
 # MAN*
