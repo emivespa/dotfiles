@@ -115,10 +115,6 @@ if command ls --version >/dev/null 2>&1; then
 	alias ls='ls -w80 --color=auto --group-directories-first'
 fi
 
-if command nvim --version >/dev/null 2>&1; then
-	alias vi=nvim # nvim isn't configured as an alternative when you install from source.
-fi
-
 tmp() {
 	# cd into a personal folder within /tmp to use as a scratch workspace
 	# free of random systemd folders and things of the sort.
