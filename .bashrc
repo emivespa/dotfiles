@@ -91,7 +91,7 @@ PS1+="\[$(tput sgr0; tput smul; tput setaf 6             )\]\$(_PS1_k8s)"
 PS1+="\[$(tput sgr0; tput smul; tput setaf 2; tput bold  )\]\u@\H"
 PS1+="\[$(tput sgr0; tput smul; tput setaf 4; tput bold  )\] \w"
 PS1+="\[$(tput sgr0; tput smul; tput setaf 2             )\]\$(_PS1_git)"
-PS1+="\[$(tput sgr0                                     )\]\n\$ "
+PS1+="\[$(tput sgr0                                      )\]\n\$ "
 # PS1="[\$(_PS1_ex)\$(_PS1_k8s)\u@\H \w\$(_PS1_git)]\$ "
 export PS1
 
