@@ -25,6 +25,7 @@ case "$(uname -n)" in
 		if test -n "$TMUX"; then
 			tmux source-file "${HOME}/.tmux.conf"
 		fi
+		. "${HOME:-~}/.profile" # Does not load by default.
 		;;
 esac
 
