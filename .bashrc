@@ -86,11 +86,11 @@ _PS1_git() {
 	fi
 	return 1
 }
-PS1+="\[$(tput sgr0; tput smul; tput setaf 1             )\]\$(_PS1_ex)"
-PS1+="\[$(tput sgr0; tput smul; tput setaf 6             )\]\$(_PS1_k8s)"
-PS1+="\[$(tput sgr0; tput smul; tput setaf 2; tput bold  )\]\u@\H"
-PS1+="\[$(tput sgr0; tput smul; tput setaf 4; tput bold  )\] \w"
-PS1+="\[$(tput sgr0; tput smul; tput setaf 2             )\]\$(_PS1_git)"
+PS1+="\[$(tput sgr0; tput setab 0; tput setaf 1             )\]\$(_PS1_ex)"
+PS1+="\[$(tput sgr0; tput setab 0; tput setaf 6             )\]\$(_PS1_k8s)"
+PS1+="\[$(tput sgr0; tput setab 0; tput setaf 2; tput bold  )\]\u@\H"
+PS1+="\[$(tput sgr0; tput setab 0; tput setaf 4; tput bold  )\] \w"
+PS1+="\[$(tput sgr0; tput setab 0; tput setaf 2             )\]\$(_PS1_git)"
 PS1+="\[$(tput sgr0                                      )\]\n\$ "
 # PS1="[\$(_PS1_ex)\$(_PS1_k8s)\u@\H \w\$(_PS1_git)]\$ "
 export PS1
@@ -139,6 +139,7 @@ nvimrc() {
 # aws
 complete -C '/usr/local/bin/aws_completer' aws
 export SAM_CLI_TELEMETRY=0
+export capiam='--capabilities CAPABILITY_IAM'
 
 # fzf
 #
