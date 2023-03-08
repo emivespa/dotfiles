@@ -168,9 +168,15 @@ export draml='--dry-run=client -o yaml'
 # export NVM_DIR="$HOME/.config/nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#
 # fnm
-export PATH="/home/pilcha/.local/share/fnm:$PATH"
-eval "`fnm env`"
+#
+# (Faster alternative, <https://github.com/Schniz/fnm>.)
+FNM_PATH='/home/pilcha/.local/share/fnm'
+if test -d "${FNM_PATH}"; then
+	export PATH="/home/pilcha/.local/share/fnm:$PATH"
+	eval "`fnm env`"
+fi
 
 ################################################################################
 
