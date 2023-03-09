@@ -173,9 +173,9 @@ export draml='--dry-run=client -o yaml'
 # fnm
 #
 # (Faster alternative, <https://github.com/Schniz/fnm>.)
-FNM_PATH='/home/pilcha/.local/share/fnm'
+FNM_PATH="${HOME}/.local/share/fnm"
 if test -d "${FNM_PATH}"; then
-	export PATH="/home/pilcha/.local/share/fnm:$PATH"
+	export PATH="${HOME}/.local/share/fnm:${PATH}"
 	eval "`fnm env`"
 fi
 
