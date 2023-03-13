@@ -1,0 +1,47 @@
+! xrdb ~/.Xresources
+
+*background:   rgb:00/00/00
+*foreground:   rgb:ff/ff/ff
+!
+*color0:       rgb:11/11/11
+*color7:       rgb:80/80/80
+*color8:       rgb:40/40/40
+*color15:      rgb:ee/ee/ee
+!
+*color1:       rgb:ff/40/40
+*color2:       rgb:40/ff/40
+*color3:       rgb:ff/ff/40
+*color4:       rgb:40/40/ff
+*color5:       rgb:ff/40/ff
+*color6:       rgb:40/ff/ff
+!
+*color9:       rgb:ff/80/80
+*color10:      rgb:80/ff/80
+*color11:      rgb:ff/ff/80
+*color12:      rgb:80/80/ff
+*color13:      rgb:ff/80/ff
+*color14:      rgb:80/ff/ff
+
+*font: xft:Menlo:size=11
+! *font: xft:Ubuntu Mono:size=12
+
+! urxvt
+!
+! https://wiki.archlinux.org/title/Rxvt-unicode
+
+urxvt.clipboard.autocopy: true
+urxvt.cutchars: " 	│"
+urxvt.scrollBar: false
+
+! xterm
+!
+! https://wiki.archlinux.org/title/Xterm
+
+xterm.maximized: true
+xterm.utf8: 2
+! https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8
+xterm.vt100.geometry: 80x50
+xterm.vt100.metaSendsEscape: true
+xterm.vt100.translations: #override \
+	Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+	Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
