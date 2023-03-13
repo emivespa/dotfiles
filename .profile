@@ -61,6 +61,9 @@ export FZF_DEFAULT_OPTS='-i --color=16 --layout=reverse'
 export GOPROXY=direct
 export GOSUMDB=off
 
+# SAM
+export SAM_CLI_TELEMETRY=0
+
 # XDG basedir spec
 #
 # Some tools check if these variable exists to see whether you "opt in" to using

@@ -139,7 +139,6 @@ nvimrc() {
 
 # aws
 complete -C '/usr/local/bin/aws_completer' aws
-export SAM_CLI_TELEMETRY=0
 export capiam='--capabilities CAPABILITY_IAM'
 
 # fzf
@@ -147,7 +146,6 @@ export capiam='--capabilities CAPABILITY_IAM'
 # /usr/share/doc/fzf/README.Debian
 test -f /usr/share/doc/fzf/examples/key-bindings.bash &&
 	\. /usr/share/doc/fzf/examples/key-bindings.bash
-# export FZF_TMUX_HEIGHT=24
 
 # kubectl
 source <(kubectl completion bash)
