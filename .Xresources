@@ -3,10 +3,10 @@
 *background:   rgb:00/00/00
 *foreground:   rgb:ff/ff/ff
 !
-*color0:       rgb:11/11/11
+*color0:       rgb:30/30/30
 *color7:       rgb:80/80/80
 *color8:       rgb:40/40/40
-*color15:      rgb:ee/ee/ee
+*color15:      rgb:df/df/df
 !
 *color1:       rgb:ff/40/40
 *color2:       rgb:40/ff/40
