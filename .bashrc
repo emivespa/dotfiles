@@ -42,6 +42,7 @@ export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 PS1=''
 # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 #
+# TODO: rewrite with PROMPT_COMMAND
 # FIXME: >SC2154 (warning): debian_chroot is referenced but not assigned.
 #
 # Also important:
@@ -93,7 +94,7 @@ PS1+="\[$(tput sgr0; tput setaf 6             )\]\$(_PS1_k8s)"
 PS1+="\[$(tput sgr0; tput setaf 2; tput bold  )\]\u@\H"
 PS1+="\[$(tput sgr0; tput setaf 4; tput bold  )\] \w"
 PS1+="\[$(tput sgr0; tput setaf 2             )\]\$(_PS1_git)"
-PS1+="\[$(tput sgr0                                      )\]]\n\$ "
+PS1+="\[$(tput sgr0                           )\]]\n\$ "
 # PS1="[\$(_PS1_ex)\$(_PS1_k8s)\u@\H \w\$(_PS1_git)]\$ "
 export PS1
 
