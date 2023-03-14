@@ -39,8 +39,8 @@ export HISTSIZE=5000
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
 
-# PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 PS1=''
+# PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 #
 # FIXME: >SC2154 (warning): debian_chroot is referenced but not assigned.
 #
@@ -87,12 +87,13 @@ _PS1_git() {
 	fi
 	return 1
 }
-PS1+="\[$(tput sgr0; tput setab 0; tput setaf 1             )\]\$(_PS1_ex)"
-PS1+="\[$(tput sgr0; tput setab 0; tput setaf 6             )\]\$(_PS1_k8s)"
-PS1+="\[$(tput sgr0; tput setab 0; tput setaf 2; tput bold  )\]\u@\H"
-PS1+="\[$(tput sgr0; tput setab 0; tput setaf 4; tput bold  )\] \w"
-PS1+="\[$(tput sgr0; tput setab 0; tput setaf 2             )\]\$(_PS1_git)"
-PS1+="\[$(tput sgr0                                      )\]\n\$ "
+PS1+='['
+PS1+="\[$(tput sgr0; tput setaf 1             )\]\$(_PS1_ex)"
+PS1+="\[$(tput sgr0; tput setaf 6             )\]\$(_PS1_k8s)"
+PS1+="\[$(tput sgr0; tput setaf 2; tput bold  )\]\u@\H"
+PS1+="\[$(tput sgr0; tput setaf 4; tput bold  )\] \w"
+PS1+="\[$(tput sgr0; tput setaf 2             )\]\$(_PS1_git)"
+PS1+="\[$(tput sgr0                                      )\]]\n\$ "
 # PS1="[\$(_PS1_ex)\$(_PS1_k8s)\u@\H \w\$(_PS1_git)]\$ "
 export PS1
 
