@@ -18,7 +18,7 @@ export LC_COLLATE=C # Sort asciibetically.
 export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
 export PAGER=less
 
-BROWSER=firefox # Fallback, but it's a snap on Ubuntu, so:
+BROWSER=firefox # Fallback, but it's a snap on Ubuntu, so prefer firefox-esr:
 if command -v firefox-esr >/dev/null 2>&1; then
 	BROWSER=firefox-esr
 fi
@@ -60,6 +60,7 @@ export FZF_DEFAULT_OPTS='-i --color=16 --layout=reverse'
 # https://git.sr.ht/~sircmpwn/dotfiles/tree/master/item/.profile
 export GOPROXY=direct
 export GOSUMDB=off
+export GOTELEMETRY=off
 
 # SAM
 export SAM_CLI_TELEMETRY=0
