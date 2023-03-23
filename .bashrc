@@ -61,7 +61,6 @@ _PS1_k8s() {
 	ctx="$(kubectl config current-context 2>/dev/null)"
 	ns="$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)"
 	test -n "$ctx" && printf %s "${ctx}:${ns} "
-
 }
 _PS1_git() {
 	# Git branch if a .git is found.
