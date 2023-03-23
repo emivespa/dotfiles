@@ -4,8 +4,8 @@
 *foreground:   rgb:ff/ff/ff
 !
 *color0:       rgb:30/30/30
-*color7:       rgb:80/80/80
-*color8:       rgb:40/40/40
+*color7:       rgb:c0/c0/c0
+*color8:       rgb:80/80/80
 *color15:      rgb:df/df/df
 !
 *color1:       rgb:ff/40/40
@@ -31,6 +31,7 @@
 
 urxvt.clipboard.autocopy: true
 urxvt.cutchars: " 	│"
+! (space, tab, tmux box drawing pipe)
 urxvt.scrollBar: false
 
 ! xterm
@@ -42,5 +43,6 @@ XTerm.utf8: 2
 ! https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8
 XTerm.VT100.Geometry: 80x50
 XTerm.VT100.Translations:       #override\n\
-	Shift Ctrl <KeyPress> v: insert-selection(CLIPBOARD)\n\
-	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n
+	Shift Ctrl <KeyPress> x: cut-selection(CLIPBOARD)\n\
+	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
+	Shift Ctrl <KeyPress> v: insert-selection(CLIPBOARD)\n
