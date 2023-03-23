@@ -147,6 +147,8 @@ export capiam='--capabilities CAPABILITY_IAM'
 # fzf
 #
 # /usr/share/doc/fzf/README.Debian
+test -f /usr/share/doc/fzf/examples/completion.bash &&
+	\. /usr/share/doc/fzf/examples/completion.bash
 test -f /usr/share/doc/fzf/examples/key-bindings.bash &&
 	\. /usr/share/doc/fzf/examples/key-bindings.bash
 
