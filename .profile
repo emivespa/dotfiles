@@ -52,6 +52,8 @@ export MANWIDTH='80'
 
 # non "standard"
 
+export DO_NOT_TRACK=1 # https://consoledonottrack.com/
+
 # FZF
 export FZF_DEFAULT_OPTS='-i --color=16 --layout=reverse'
 
