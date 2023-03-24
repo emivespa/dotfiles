@@ -1,26 +1,26 @@
 ! xrdb ~/.Xresources
 
-*background:   rgb:00/00/00
-*foreground:   rgb:ff/ff/ff
-!
-*color0:       rgb:30/30/30
-*color7:       rgb:c0/c0/c0
-*color8:       rgb:80/80/80
-*color15:      rgb:df/df/df
-!
-*color1:       rgb:ff/40/40
-*color2:       rgb:40/ff/40
-*color3:       rgb:ff/ff/40
-*color4:       rgb:40/40/ff
-*color5:       rgb:ff/40/ff
-*color6:       rgb:40/ff/ff
-!
-*color9:       rgb:ff/80/80
-*color10:      rgb:80/ff/80
-*color11:      rgb:ff/ff/80
-*color12:      rgb:80/80/ff
-*color13:      rgb:ff/80/ff
-*color14:      rgb:80/ff/ff
+! Theme adapted from Asciinema, changes:
+! background<->color0->♻️
+! foreground->color8->color15->♻️ (Otherwise #8 would be lighter than #15)
+*foreground:  rgb:ff/ff/ff
+*background:  rgb:00/00/00
+*color0:      rgb:12/13/14
+*color1:      rgb:dd/3c/69
+*color2:      rgb:4e/bf/22
+*color3:      rgb:dd/af/3c
+*color4:      rgb:26/b0/d7
+*color5:      rgb:b9/54/e1
+*color6:      rgb:54/e1/b9
+*color7:      rgb:d9/d9/d9
+*color8:      rgb:cc/cc/cc
+*color9:      rgb:dd/3c/69
+*color10:     rgb:4e/bf/22
+*color11:     rgb:dd/af/3c
+*color12:     rgb:26/b0/d7
+*color13:     rgb:b9/54/e1
+*color14:     rgb:54/e1/b9
+*color15:     rgb:4d/4d/4d
 
 *font: xft:Menlo:size=11
 ! *font: xft:Ubuntu Mono:size=12
