@@ -1,7 +1,7 @@
 ! xrdb ~/.Xresources
 
 ! Theme adapted from Asciinema, changes:
-! background<->color0->♻️
+! background->color0->♻️
 ! foreground->color8->color15->♻️ (Otherwise #8 would be lighter than #15)
 *foreground:  rgb:ff/ff/ff
 *background:  rgb:00/00/00
