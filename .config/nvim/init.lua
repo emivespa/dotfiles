@@ -1,8 +1,45 @@
 -- blogpost: https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
 
+vim.cmd.colorscheme 'default'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.cmd.colorscheme 'default'
+vim.o.autoindent = true
+vim.o.autowrite = true
+vim.o.background = 'dark'
+vim.o.backspace = 2 -- Backspace over anything.
+vim.o.breakindent = true
+vim.o.clipboard = 'unnamedplus'
+vim.o.confirm = true -- Have destructive commands y-n prompt instead of fail.
+vim.o.encoding = 'utf-8'
+vim.o.foldenable = false
+vim.o.formatoptions = 'roqlj' -- See fo-table.
+vim.o.hlsearch = true
+vim.o.ignorecase = false
+vim.o.joinspaces = false -- Single space after a period.
+vim.o.lazyredraw = true -- No redrawing while executing macros.
+vim.o.linebreak = true
+vim.o.modeline = false
+vim.o.nrformats = 'alpha,bin,hex' -- Enable CTRL-A for letters, don't treat leading 0s as a base 8 marker.
+vim.o.number = false
+vim.o.path = vim.o.path .. '**' -- Search into subfolders, tab complete paths.
+vim.o.report = 0 -- Always report number of lines changed, no arbitrary threshhold.
+vim.o.secure = true -- Unnecesary but just in case, see trojan-horse.
+vim.o.shiftround = true -- Round indent to shiftwidth.
+vim.o.shiftwidth = 8
+vim.o.shortmess = '' -- Don't shorten any messages.
+vim.o.showfulltag = true
+vim.o.showmode = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.startofline = false
+vim.o.t_Co = 16 -- Prevent boldface gallore if vim incorrectly assumes >16 color support.
+vim.o.tabstop = 8
+vim.o.termguicolors = false
+vim.o.textwidth = 80 -- One True Arbitrary Number.
+vim.o.undofile = true
+vim.o.virtualedit = 'all'
+vim.o.wrap = false
+vim.o.wrapscan = false -- /, * and friends don't wrap around the file. (--search hit BOTTOM, continuing at TOP--)
 
 -- https://github.com/folke/lazy.nvim - "zzz A modern plugin manager for Neovim"
 -- :help lazy.nvim.txt
@@ -17,7 +54,7 @@ if vim.loop.fs_stat(lazypath) then
 	vim.opt.rtp:prepend(lazypath)
 end
 require('lazy').setup({
-	-- nvim-lspconfig
+	-- [[ nvim-lspconfig ]]
 	{
 		'https://github.com/neovim/nvim-lspconfig',
 		config = function()
@@ -35,30 +72,32 @@ require('lazy').setup({
 			lspconfig.lua_ls.setup({})
 		end,
 	},
-	-- nvim-cmp and friends
 	'https://github.com/hrsh7th/nvim-cmp',
 	'https://github.com/hrsh7th/cmp-nvim-lsp',
 	'https://github.com/hrsh7th/cmp-buffer',
 	'https://github.com/hrsh7th/cmp-path',
-	-- luasnip
-	'https://github.com/saadparwaiz1/cmp_luasnip',
+
+	-- [[ luasnip ]]
 	{
 		'https://github.com/L3MON4D3/LuaSnip',
-		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/Code/User/snippets/global.json" } })
-		end,
+		-- config = function()
+		-- 	require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/Code/User/snippets/global.json" } })
+		-- end,
 	},
+	'https://github.com/saadparwaiz1/cmp_luasnip',
 	-- 'https://github.com/rafamadriz/friendly-snippets',
-	-- other
+
+	-- [[ misc ]]
 	'https://github.com/editorconfig/editorconfig-vim',
 	-- 'https://github.com/lukas-reineke/indent-blankline.nvim',
-	-- Comment.nvim
 	{
 		'https://github.com/numToStr/Comment.nvim',
 		config = function()
 			require('Comment').setup()
 		end,
-	}
+	},
+	'https://github.com/junegunn/fzf',
+	'https://github.com/junegunn/fzf.vim',
 }, {})
 
 -- Keybindings
@@ -116,6 +155,8 @@ vim.lsp.handlers.signature_help,
 )
 
 -- Autocomplete
+--
+-- TODO: move into cmp config, set up luasnip as dependency?
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 require('luasnip.loaders.from_vscode').lazy_load()
 local cmp = require('cmp')
@@ -143,7 +184,7 @@ cmp.setup({
 				nvim_lsp = 'λ',
 				luasnip = '⋗',
 				buffer = 'Ω',
-				path = '🖫',
+				path = ' ',
 			}
 			item.menu = menu_icon[entry.source.name]
 			return item
