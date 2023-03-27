@@ -47,12 +47,14 @@ PS1=''
 #
 # Also important:
 # https://www.youtube.com/watch?v=ngLwml9XI-I&list=PLWBKAf81pmOaP9naRiNAqug6EBnkPakvY&index=252
-_PS1_ex() {
+_PS1_ex()
+{
 	# Last exit status if it wasn't 0.
 	local ex="$?"
 	test "$ex" -ne '0' && printf %s "${ex} "
 }
-_PS1_k8s() {
+_PS1_k8s()
+{
 	# kubectx:kubens if there is one.
 	# TODO: fast pure bash version? current:
 	#	real    0m0,070s
@@ -62,7 +64,8 @@ _PS1_k8s() {
 	ns="$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)"
 	test -n "$ctx" && printf %s "${ctx}:${ns} "
 }
-_PS1_git() {
+_PS1_git()
+{
 	# Git branch if a .git is found.
 	# Pure bash (meaning no forking meaning fast) alternative to __git_ps1 (100ms -> 1ms).
 	# https://gist.github.com/bingzhangdai/dd4e283a14290c079a76c4ba17f19d69
@@ -118,7 +121,8 @@ if command ls --version >/dev/null 2>&1; then
 	alias ls='ls -w80 --color=auto --group-directories-first'
 fi
 
-tmp() {
+tmp()
+{
 	# cd into a personal folder within /tmp to use as a scratch workspace
 	# free of random systemd folders and things of the sort.
 	local d="${TMPDIR:-/tmp}/${USER}"
@@ -126,11 +130,13 @@ tmp() {
 	cd "$d" || exit 1
 }
 
-vimrc() {
+vimrc()
+{
 	cd "${HOME}/.vim/." || exit 1
 	vim vimrc
 }
-nvimrc() {
+nvimrc()
+{
 	cd "${HOME}/.config/nvim/." || exit 1
 	nvim init.lua
 }
