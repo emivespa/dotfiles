@@ -1,26 +1,25 @@
 ! xrdb ~/.Xresources
 
 ! Theme adapted from Asciinema, changes:
-! background->color0->♻️
-! foreground->color8->color15->♻️ (Otherwise #8 would be lighter than #15)
-*foreground:  rgb:ff/ff/ff
-*background:  rgb:00/00/00
-*color0:      rgb:12/13/14
 *color1:      rgb:dd/3c/69
 *color2:      rgb:4e/bf/22
 *color3:      rgb:dd/af/3c
 *color4:      rgb:26/b0/d7
 *color5:      rgb:b9/54/e1
 *color6:      rgb:54/e1/b9
-*color7:      rgb:d9/d9/d9
-*color8:      rgb:cc/cc/cc
 *color9:      rgb:dd/3c/69
 *color10:     rgb:4e/bf/22
 *color11:     rgb:dd/af/3c
 *color12:     rgb:26/b0/d7
 *color13:     rgb:b9/54/e1
 *color14:     rgb:54/e1/b9
-*color15:     rgb:4d/4d/4d
+! Changes from asciinema:
+*foreground:  rgb:ff/ff/ff
+*background:  rgb:00/00/00
+*color0:      rgb:12/13/14
+*color7:      rgb=cc/cc/cc
+*color8:      rgb:4d/4d/4d
+*color15:     rgb:d9/d9/d9
 
 *font: xft:Menlo:size=11
 ! *font: xft:Ubuntu Mono:size=12
@@ -39,9 +38,12 @@ urxvt.scrollBar: false
 ! https://wiki.archlinux.org/title/Xterm
 
 XTerm.Maximized: true
-XTerm.utf8: 2
 ! https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8
+XTerm.utf8: 2
 XTerm.VT100.Geometry: 80x50
+! Make alt key normal:
+XTerm.vt100.metaSendsEscape: true
+! Make Ctrl+Shift+x/c/v} work as expected:
 XTerm.VT100.Translations:       #override\n\
 	Shift Ctrl <KeyPress> x: cut-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
