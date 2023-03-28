@@ -17,7 +17,7 @@
 *foreground:  rgb:ff/ff/ff
 *background:  rgb:00/00/00
 *color0:      rgb:12/13/14
-*color7:      rgb=cc/cc/cc
+*color7:      rgb:cc/cc/cc
 *color8:      rgb:4d/4d/4d
 *color15:     rgb:d9/d9/d9
 
