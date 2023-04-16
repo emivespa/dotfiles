@@ -43,7 +43,7 @@ XTerm.utf8: 2
 XTerm.VT100.Geometry: 80x50
 ! Make alt key normal:
 XTerm.vt100.metaSendsEscape: true
-! Make Ctrl+Shift+x/c/v} work as expected:
+! Make Ctrl+Shift+x/c/v work as expected:
 XTerm.VT100.Translations:       #override\n\
 	Shift Ctrl <KeyPress> x: cut-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
