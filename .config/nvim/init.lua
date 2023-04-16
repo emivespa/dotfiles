@@ -1,14 +1,29 @@
 -- blogpost: https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
 
-vim.cmd.colorscheme 'default'
+-- TODO: rewrite this in lua:
+vim.cmd([[
+	nnoremap <C-p> :GFiles!<Cr>
+	command! -bang -nargs=* GGrep
+		\ call fzf#vim#grep(
+		\ 'git grep --line-number -- '.shellescape(<q-args>), 0,
+		\ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+	nnoremap <C-g> :GGrep!<Cr>
+	nnoremap j gj
+	nnoremap k gk
+]])
+
+vim.cmd.filetype 'on'
+vim.cmd.syntax 'on'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.netrw_banner = 0
+vim.g.netrw_hide = 0
+vim.g.netrw_liststyle = 3 -- Start in tree mode.
 vim.o.autoindent = true
 vim.o.autowrite = true
 vim.o.background = 'dark'
-vim.o.backspace = 2 -- Backspace over anything.
+vim.o.backspace = 'indent,eol,start' -- Backspace over anything.
 vim.o.breakindent = true
-vim.o.clipboard = 'unnamedplus'
 vim.o.confirm = true -- Have destructive commands y-n prompt instead of fail.
 vim.o.encoding = 'utf-8'
 vim.o.foldenable = false
@@ -16,6 +31,7 @@ vim.o.formatoptions = 'roqlj' -- See fo-table.
 vim.o.hlsearch = true
 vim.o.ignorecase = false
 vim.o.joinspaces = false -- Single space after a period.
+vim.o.laststatus = 1 -- Only show statusbar if there are >1 windows.
 vim.o.lazyredraw = true -- No redrawing while executing macros.
 vim.o.linebreak = true
 vim.o.modeline = false
@@ -38,7 +54,7 @@ vim.o.termguicolors = false
 vim.o.textwidth = 80 -- One True Arbitrary Number.
 vim.o.undofile = true
 vim.o.virtualedit = 'all'
-vim.o.wrap = false
+vim.o.wrap = true
 vim.o.wrapscan = false -- /, * and friends don't wrap around the file. (--search hit BOTTOM, continuing at TOP--)
 
 -- https://github.com/folke/lazy.nvim - "zzz A modern plugin manager for Neovim"
@@ -54,30 +70,88 @@ if vim.loop.fs_stat(lazypath) then
 	vim.opt.rtp:prepend(lazypath)
 end
 require('lazy').setup({
-	-- [[ nvim-lspconfig ]]
+	{
+		-- Personal colorscheme mods:
+		'https://github.com/emivespa/defaultx.vim',
+		config = function()
+			vim.cmd.colorscheme 'peachpuffx'
+		end,
+	},
+	-- nvim-lspconfig
 	{
 		'https://github.com/neovim/nvim-lspconfig',
 		config = function()
 			local lspconfig = require('lspconfig')
 			local lsp_defaults = lspconfig.util.default_config
 			lsp_defaults.capabilities = vim.tbl_deep_extend(
-			'force',
-			lsp_defaults.capabilities,
-			require('cmp_nvim_lsp').default_capabilities()
+				'force',
+				lsp_defaults.capabilities,
+				require('cmp_nvim_lsp').default_capabilities()
 			)
-			-- LSP servers
-			lspconfig.tsserver.setup({})
+			--Enable (broadcasting) snippet capability for completion
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
+			lspconfig.html.setup { capabilities = capabilities, }
+			lspconfig.jsonls.setup { capabilities = capabilities, }
+			lspconfig.cssls.setup { capabilities = capabilities, }
+			lspconfig.bashls.setup{}
+			lspconfig.clangd.setup{}
+			lspconfig.cssmodules_ls.setup{}
+			lspconfig.docker_compose_language_service.setup{}
+			lspconfig.dockerls.setup{}
+			lspconfig.golangci_lint_ls.setup{}
+			lspconfig.golangci_lint_ls.setup{}
+			lspconfig.gopls.setup{}
+			lspconfig.hoon_ls.setup{}
 			lspconfig.html.setup({})
-			lspconfig.cssls.setup({})
+			lspconfig.java_language_server.setup{}
+			lspconfig.jqls.setup{}
 			lspconfig.lua_ls.setup({})
+			lspconfig.marksman.setup{}
+			lspconfig.sqlls.setup{}
+			lspconfig.sqls.setup{}
+			lspconfig.terraform_lsp.setup{}
+			lspconfig.terraformls.setup{}
+			lspconfig.tsserver.setup({})
+			lspconfig.eslint.setup({
+				on_attach = function(client, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						command = "EslintFixAll",
+					})
+				end,
+			})
 		end,
+		dependencies = {
+			{
+				'https://github.com/williamboman/mason.nvim',
+				build = ':MasonUpdate',
+				config = function()
+					require("mason").setup()
+				end,
+			},
+			{
+				'https://github.com/williamboman/mason-lspconfig.nvim',
+				config = function()
+					require("mason-lspconfig").setup()
+				end,
+			},
+			{
+				'https://github.com/folke/neodev.nvim',
+				config = function()
+					require('neodev').setup()
+				end,
+			},
+		},
 	},
+
+	-- nvim-comp and cmp sources
 	'https://github.com/hrsh7th/nvim-cmp',
 	'https://github.com/hrsh7th/cmp-nvim-lsp',
 	'https://github.com/hrsh7th/cmp-buffer',
 	'https://github.com/hrsh7th/cmp-path',
 
-	-- [[ luasnip ]]
+	-- luasnip
 	{
 		'https://github.com/L3MON4D3/LuaSnip',
 		-- config = function()
@@ -87,7 +161,7 @@ require('lazy').setup({
 	'https://github.com/saadparwaiz1/cmp_luasnip',
 	-- 'https://github.com/rafamadriz/friendly-snippets',
 
-	-- [[ misc ]]
+	-- misc
 	'https://github.com/editorconfig/editorconfig-vim',
 	-- 'https://github.com/lukas-reineke/indent-blankline.nvim',
 	{
@@ -96,6 +170,7 @@ require('lazy').setup({
 			require('Comment').setup()
 		end,
 	},
+	-- fzf
 	'https://github.com/junegunn/fzf',
 	'https://github.com/junegunn/fzf.vim',
 }, {})
@@ -125,7 +200,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end
 })
 
--- Diagnostics
+-- signs
 local sign = function(opts)
 	vim.fn.sign_define(opts.name, {
 		texthl = opts.name,
@@ -133,10 +208,10 @@ local sign = function(opts)
 		numhl = ''
 	})
 end
-sign({name = 'DiagnosticSignError', text = '❌'})
-sign({name = 'DiagnosticSignWarn', text = '⚠️'})
-sign({name = 'DiagnosticSignHint', text = '💡'})
-sign({name = 'DiagnosticSignInfo', text = 'ℹ️'})
+sign({name = 'DiagnosticSignError', text = 'E'})
+sign({name = 'DiagnosticSignWarn', text = 'W'})
+sign({name = 'DiagnosticSignHint', text = 'H'})
+sign({name = 'DiagnosticSignInfo', text = 'I'})
 vim.diagnostic.config({
 	virtual_text = false,
 	severity_sort = true,
@@ -146,17 +221,15 @@ vim.diagnostic.config({
 	},
 })
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-vim.lsp.handlers.hover,
-{border = 'rounded'}
+	vim.lsp.handlers.hover,
+	{border = 'rounded'}
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-vim.lsp.handlers.signature_help,
-{border = 'rounded'}
+	vim.lsp.handlers.signature_help,
+	{border = 'rounded'}
 )
 
--- Autocomplete
---
--- TODO: move into cmp config, set up luasnip as dependency?
+-- cmp and luasnip
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 require('luasnip.loaders.from_vscode').lazy_load()
 local cmp = require('cmp')
