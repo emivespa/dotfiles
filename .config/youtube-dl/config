@@ -1,4 +1,4 @@
+--add-metadata
 --embed-thumbnail
 --geo-bypass
 --no-call-home
---restrict-filenames
