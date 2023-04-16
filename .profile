@@ -10,7 +10,7 @@
 
 ################################################################################
 
-# standard
+# env
 
 export EDITOR=vi; export VISUAL="$EDITOR"
 export LANG=en_US.UTF-8
@@ -45,12 +45,16 @@ fi
 export MANPAGER="vim -R --not-a-term -c'runtime plugin/manpager.vim | MANPAGER' -"
 	# --not-a-term prevents "Reading from stdin...". (Not available in nvim.)
 	# Make sure the plugin is loaded, just in case.
-export MANSECT='1p:1:n:l:8:3p:3:0p:0:2:3posix:3pm:3perl:3am:5:4:9:6:7' # Default but search Np before N.
+if command -v 'nvim' >/dev/null 2>&1; then
+	export MANPAGER="nvim -c'runtime plugin/man.lua | Man!' -"
+fi
+# export MANSECT='1:n:l:8:3:0:2:3posix:3pm:3perl:3am:5:4:9:6:7' # Default.
+export MANSECT='1posix:1:n:l:8:3posix:3:0:2:3pm:3perl:3am:5:4:9:6:7posix:7' # Default but search Nposix before N.
 export MANWIDTH='80'
 
 ################################################################################
 
-# non "standard"
+# program-specific
 
 export DO_NOT_TRACK=1 # https://consoledonottrack.com/
 

@@ -33,6 +33,8 @@ esac
 
 # env
 
+. "${HOME}/.env" # Secret env.
+
 export HISTCONTROL=ignorespace
 export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
 export HISTSIZE=5000
@@ -92,13 +94,13 @@ _PS1_git()
 }
 # [ exit_status? kubectx:kubens? user@host pwd git_branch? ]
 # $
-PS1+='[ '
+PS1+='['
 PS1+="\[$(tput sgr0; tput setaf 1             )\]\$(_PS1_ex)"
 PS1+="\[$(tput sgr0; tput setaf 6             )\]\$(_PS1_k8s)"
 PS1+="\[$(tput sgr0; tput setaf 2; tput bold  )\]\u@\H"
 PS1+="\[$(tput sgr0; tput setaf 4; tput bold  )\] \w"
 PS1+="\[$(tput sgr0; tput setaf 2             )\]\$(_PS1_git)"
-PS1+="\[$(tput sgr0                           )\] ]\n\$ "
+PS1+="\[$(tput sgr0                           )\]]\n\$ "
 export PS1
 
 ################################################################################
@@ -156,17 +158,14 @@ test -f /usr/share/doc/fzf/examples/completion.bash &&
 	\. /usr/share/doc/fzf/examples/completion.bash
 test -f /usr/share/doc/fzf/examples/key-bindings.bash &&
 	\. /usr/share/doc/fzf/examples/key-bindings.bash
+export FZF_COMPLETION_OPTS='--height 24'
 
 # kubectl
 source <(kubectl completion bash)
-alias k=kubectl
 # if command -v kubecolor >/dev/null 2>&1; then
 # 	alias k=kubecolor
 # fi
 complete -o default -F __start_kubectl k
-# kubectx
-alias kctx=kubectx
-alias kns=kubens
 # Shortcuts
 export ow='-o wide'
 export draml='--dry-run=client -o yaml'
@@ -184,8 +183,12 @@ export draml='--dry-run=client -o yaml'
 FNM_PATH="${HOME}/.local/share/fnm"
 if test -d "${FNM_PATH}"; then
 	export PATH="${HOME}/.local/share/fnm:${PATH}"
-	eval "`fnm env`"
+	eval "$(fnm env)"
 fi
+
+# youtube-dl and yt-dlp
+export mp3='--audio-format mp3 --audio-quality 0 -x -f bestaudio --no-playlist'
+export mp3p='--audio-format mp3 --audio-quality 0 -x -f bestaudio --yes-playlist'
 
 ################################################################################
 
