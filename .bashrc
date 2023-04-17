@@ -186,6 +186,9 @@ if test -d "${FNM_PATH}"; then
 	eval "$(fnm env)"
 fi
 
+# terraform
+complete -C /home/pilcha/bin/ignore/terraform terraform
+
 # youtube-dl and yt-dlp
 export mp3='--audio-format mp3 --audio-quality 0 -x -f bestaudio --no-playlist'
 export mp3p='--audio-format mp3 --audio-quality 0 -x -f bestaudio --yes-playlist'
