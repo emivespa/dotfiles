@@ -15,25 +15,24 @@ if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ] && [ "$TERM_PROGRAM" != 'vscode' ]; t
 	exec tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
 fi
 
-# Custom config for specific hostnames:
+# Hostname-specific config:
 case "$(uname -n)" in
 	('ip-'*'.ec2.internal') # AWS CloudShell
-		# The CloudShell .bashrc exports AWS_EXECUTION_ENV and I'll overwrite it with
-		# this file so putting this here for compatibility just in case:
+		# The default .bashrc has this line and I'll overwrite it with
+		# this file so keeping it here for compatibility just in case:
 		export AWS_EXECUTION_ENV=CloudShell
-		# CloudShell's tmux doesn't load .tmux.conf for some reason:
+		# tmux doesn't load .tmux.conf for some reason:
 		if test -n "$TMUX"; then
 			tmux source-file "${HOME}/.tmux.conf"
 		fi
-		. "${HOME:-~}/.profile" # Does not load by default.
+		# .profile does does not load by default:
+		. "${HOME:-~}/.profile"
 		;;
 esac
 
 ################################################################################
 
 # env
-
-. "${HOME}/.env" # Secret env.
 
 export HISTCONTROL=ignorespace
 export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
@@ -62,9 +61,12 @@ _PS1_k8s()
 	#	real    0m0,070s
 	command -v kubectl >/dev/null || return
 	local ctx ns
-	ctx="$(kubectl config current-context 2>/dev/null)"
+	# ctx="$(kubectl config current-context 2>/dev/null)"
+	ctx="$(grep '^current-context:' <"${HOME}/.kube/config" | awk '{ print $2 }')"
 	ns="$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)"
-	test -n "$ctx" && printf %s "${ctx}:${ns} "
+	if test "$ctx" != '""'; then # TODO: why doesn't -n work?
+		printf %s "${ctx}:${ns} "
+	fi
 }
 _PS1_git()
 {
