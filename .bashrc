@@ -57,16 +57,14 @@ _PS1_ex()
 _PS1_k8s()
 {
 	# kubectx:kubens if there is one.
-	# TODO: fast pure bash version? current:
-	#	real    0m0,070s
 	command -v kubectl >/dev/null || return
 	local ctx ns
-	# ctx="$(kubectl config current-context 2>/dev/null)"
 	ctx="$(grep '^current-context:' <"${HOME}/.kube/config" | awk '{ print $2 }')"
-	ns="$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)"
-	if test "$ctx" != '""'; then # TODO: why doesn't -n work?
-		printf %s "${ctx}:${ns} "
+	if test "$ctx" = '""'; then # TODO: why doesn't -n work?
+		return 1
 	fi
+	ns="$(sed -n "/namespace/,/name: minikube/ {/namespace/p}" <"${HOME}/.kube/config" | awk '{ print $2 }')"
+	printf %s "${ctx}:${ns} "
 }
 _PS1_git()
 {
@@ -82,7 +80,7 @@ _PS1_git()
 		test -e "$head_file" && break
 		dir="${dir%/*}"
 	done
-	if test -e "$head_file"; then
+	if test -f "$head_file"; then
 		local head
 		read -r head <"$head_file" || return
 		case "$head" in
@@ -90,7 +88,10 @@ _PS1_git()
 			('') ;;
 			(*) printf %s " ${head:0:7}" ;; # Detached HEAD. BUG(wontfix): stuck to default of 7 char short SHAs.
 		esac
-		# return 0
+		if test -f "${dir}/.git/shallow"; then
+			printf %s "(shallow)"
+		fi
+		return 0
 	fi
 	return 1
 }
