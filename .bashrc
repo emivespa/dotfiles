@@ -189,6 +189,13 @@ if test -d "${FNM_PATH}"; then
 	eval "$(fnm env)"
 fi
 
+# pnpm
+export PNPM_HOME="/home/pilcha/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
 # terraform
 complete -C /home/pilcha/bin/ignore/terraform terraform
 
