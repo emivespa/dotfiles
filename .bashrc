@@ -164,11 +164,13 @@ test -f /usr/share/doc/fzf/examples/key-bindings.bash &&
 export FZF_COMPLETION_OPTS='--height 24'
 
 # kubectl
-source <(kubectl completion bash)
 # if command -v kubecolor >/dev/null 2>&1; then
 # 	alias k=kubecolor
 # fi
-complete -o default -F __start_kubectl k
+if command -v kubectl >/dev/null 2>&1; then
+	source <(kubectl completion bash)
+	complete -o default -F __start_kubectl k
+fi
 # Shortcuts
 export ow='-o wide'
 export draml='--dry-run=client -o yaml'
