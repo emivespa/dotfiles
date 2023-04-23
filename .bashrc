@@ -12,7 +12,7 @@ esac
 # session if there is one:
 if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ] && [ "$TERM_PROGRAM" != 'vscode' ]; then
 	orphan="$(tmux ls | grep -v 'attached' | head -n1 | sed -E 's/:.*//')"
-	exec tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
+	tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
 fi
 
 # Hostname-specific config:
@@ -57,7 +57,7 @@ _PS1_ex()
 _PS1_k8s()
 {
 	# kubectx:kubens if there is one.
-	command -v kubectl >/dev/null || return
+	# command -v kubectl >/dev/null || return
 	local ctx ns
 	ctx="$(grep '^current-context:' <"${HOME}/.kube/config" | awk '{ print $2 }')"
 	if test "$ctx" = '""'; then # TODO: why doesn't -n work?
