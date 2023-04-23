@@ -57,7 +57,7 @@ _PS1_ex()
 _PS1_k8s()
 {
 	# kubectx:kubens if there is one.
-	# command -v kubectl >/dev/null || return
+	test -f "${HOME}/.kube/config" || exit 1
 	local ctx ns
 	ctx="$(grep '^current-context:' <"${HOME}/.kube/config" | awk '{ print $2 }')"
 	if test "$ctx" = '""'; then # TODO: why doesn't -n work?
