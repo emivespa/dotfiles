@@ -49,7 +49,8 @@ if command -v 'nvim' >/dev/null 2>&1; then
 	export MANPAGER="nvim -c'runtime plugin/man.lua | Man!' -"
 fi
 # export MANSECT='1:n:l:8:3:0:2:3posix:3pm:3perl:3am:5:4:9:6:7' # Default.
-export MANSECT='1posix:1:n:l:8:3posix:3:0:2:3pm:3perl:3am:5:4:9:6:7posix:7' # Default but search Nposix before N.
+export MANSECT='1posix:1:n:l:8:3posix:3:0:2:3pm:3perl:3am:5:4:9:6:7posix:7'
+	# Default but search Nposix before N.
 export MANWIDTH='80'
 
 ################################################################################
@@ -57,7 +58,7 @@ export MANWIDTH='80'
 # program-specific
 
 export DO_NOT_TRACK=1  # https://consoledonottrack.com/
-export NO_COLOR=1      # https://no-color.org/
+# export NO_COLOR=1      # https://no-color.org/
 
 # FZF
 export FZF_DEFAULT_OPTS='-i --color=16 --layout=reverse'

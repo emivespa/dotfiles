@@ -8,10 +8,8 @@ case "$-" in
 	(*) return ;;
 esac
 
-# If not within tmux, emacs or vscode, start tmux, attaching to an orphaned
-# session if there is one:
-if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ] && [ "$TERM_PROGRAM" != 'vscode' ]; then
-	orphan="$(tmux ls | grep -v 'attached' | head -n1 | sed -E 's/:.*//')"
+if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ]; then
+	orphan="$(tmux "ls" | grep -v 'attached' | head -n1 | sed -E 's/:.*//')"
 	tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
 fi
 
@@ -35,7 +33,8 @@ esac
 # env
 
 export HISTCONTROL=ignorespace
-export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
+export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status'
+	# "Where am I?" command spam.
 export HISTSIZE=5000
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
@@ -86,7 +85,11 @@ _PS1_git()
 		case "$head" in
 			(ref:*) printf %s " ${head#ref: refs/heads/}" ;;
 			('') ;;
-			(*) printf %s " ${head:0:7}" ;; # Detached HEAD. BUG(wontfix): stuck to default of 7 char short SHAs.
+			(*)
+				# Detached HEAD.
+				# BUG(wontfix): stuck to 7 char short SHAs.
+				printf %s " ${head:0:7}"
+				;;
 		esac
 		if test -f "${dir}/.git/shallow"; then
 			printf %s "(shallow)"
@@ -194,8 +197,8 @@ fi
 # pnpm
 export PNPM_HOME="/home/pilcha/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+	*":$PNPM_HOME:"*) ;;
+	*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 # terraform
