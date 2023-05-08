@@ -10,10 +10,11 @@ vim.o.autowrite = true
 vim.o.background = 'dark'
 vim.o.backspace = 'indent,eol,start' -- Backspace over anything.
 vim.o.breakindent = true
--- vim.o.completeopt = {'menu', 'menuone', 'preview', 'noinsert', 'noselect'}
 vim.o.confirm = true -- Have destructive commands y-n prompt instead of fail.
 vim.o.encoding = 'utf-8'
-vim.o.foldenable = false
+vim.o.foldenable = true
+vim.o.foldlevelstart = 99
+vim.o.foldmethod = 'indent'
 vim.o.formatoptions = 'roqlj' -- See fo-table.
 vim.o.hlsearch = true
 vim.o.ignorecase = false
@@ -43,6 +44,7 @@ vim.o.undofile = true
 vim.o.virtualedit = 'all'
 vim.o.wrap = false
 vim.o.wrapscan = false -- /, * and friends don't wrap around the file. (--search hit BOTTOM, continuing at TOP--)
+vim.opt.completeopt = {'menu', 'menuone', 'preview', 'noinsert', 'noselect'}
 
 -- https://github.com/folke/lazy.nvim - "zzz A modern plugin manager for Neovim"
 -- :help lazy.nvim.txt
