@@ -1,17 +1,3 @@
--- blogpost: https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
-
--- TODO: rewrite this in lua:
-vim.cmd([[
-	nnoremap <C-p> :GFiles!<Cr>
-	command! -bang -nargs=* GGrep
-		\ call fzf#vim#grep(
-		\ 'git grep --line-number -- '.shellescape(<q-args>), 0,
-		\ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
-	nnoremap <C-g> :GGrep!<Cr>
-	nnoremap j gj
-	nnoremap k gk
-]])
-
 vim.cmd.filetype 'on'
 vim.cmd.syntax 'on'
 vim.g.mapleader = ' '
@@ -24,6 +10,7 @@ vim.o.autowrite = true
 vim.o.background = 'dark'
 vim.o.backspace = 'indent,eol,start' -- Backspace over anything.
 vim.o.breakindent = true
+-- vim.o.completeopt = {'menu', 'menuone', 'preview', 'noinsert', 'noselect'}
 vim.o.confirm = true -- Have destructive commands y-n prompt instead of fail.
 vim.o.encoding = 'utf-8'
 vim.o.foldenable = false
@@ -54,7 +41,7 @@ vim.o.termguicolors = false
 vim.o.textwidth = 80 -- One True Arbitrary Number.
 vim.o.undofile = true
 vim.o.virtualedit = 'all'
-vim.o.wrap = true
+vim.o.wrap = false
 vim.o.wrapscan = false -- /, * and friends don't wrap around the file. (--search hit BOTTOM, continuing at TOP--)
 
 -- https://github.com/folke/lazy.nvim - "zzz A modern plugin manager for Neovim"
@@ -69,138 +56,250 @@ local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if vim.loop.fs_stat(lazypath) then
 	vim.opt.rtp:prepend(lazypath)
 end
+
 require('lazy').setup({
+	-- colorscheme
 	{
-		-- Personal colorscheme mods:
-		'https://github.com/emivespa/defaultx.vim',
+		'https://github.com/emivespa/defaultx.vim', -- Personal colorscheme mods.
 		config = function()
 			vim.cmd.colorscheme 'peachpuffx'
 		end,
 	},
-	-- nvim-lspconfig
-	{
-		'https://github.com/neovim/nvim-lspconfig',
-		config = function()
-			local lspconfig = require('lspconfig')
-			local lsp_defaults = lspconfig.util.default_config
-			lsp_defaults.capabilities = vim.tbl_deep_extend(
-				'force',
-				lsp_defaults.capabilities,
-				require('cmp_nvim_lsp').default_capabilities()
-			)
-			--Enable (broadcasting) snippet capability for completion
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
-			lspconfig.html.setup { capabilities = capabilities, }
-			lspconfig.jsonls.setup { capabilities = capabilities, }
-			lspconfig.cssls.setup { capabilities = capabilities, }
-			lspconfig.bashls.setup{}
-			lspconfig.clangd.setup{}
-			lspconfig.cssmodules_ls.setup{}
-			lspconfig.docker_compose_language_service.setup{}
-			lspconfig.dockerls.setup{}
-			lspconfig.golangci_lint_ls.setup{}
-			lspconfig.golangci_lint_ls.setup{}
-			lspconfig.gopls.setup{}
-			lspconfig.hoon_ls.setup{}
-			lspconfig.html.setup({})
-			lspconfig.java_language_server.setup{}
-			lspconfig.jqls.setup{}
-			lspconfig.lua_ls.setup({})
-			lspconfig.marksman.setup{}
-			lspconfig.sqlls.setup{}
-			lspconfig.sqls.setup{}
-			lspconfig.terraform_lsp.setup{}
-			lspconfig.terraformls.setup{}
-			lspconfig.tsserver.setup({})
-			lspconfig.eslint.setup({
-				on_attach = function(client, bufnr)
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = bufnr,
-						command = "EslintFixAll",
-					})
-				end,
-			})
-		end,
-		dependencies = {
-			{
-				'https://github.com/williamboman/mason.nvim',
-				build = ':MasonUpdate',
-				config = function()
-					require("mason").setup()
-				end,
-			},
-			{
-				'https://github.com/williamboman/mason-lspconfig.nvim',
-				config = function()
-					require("mason-lspconfig").setup()
-				end,
-			},
-			{
-				'https://github.com/folke/neodev.nvim',
-				config = function()
-					require('neodev').setup()
-				end,
-			},
-		},
-	},
 
-	-- nvim-comp and cmp sources
-	'https://github.com/hrsh7th/nvim-cmp',
-	'https://github.com/hrsh7th/cmp-nvim-lsp',
-	'https://github.com/hrsh7th/cmp-buffer',
-	'https://github.com/hrsh7th/cmp-path',
-
-	-- luasnip
-	{
-		'https://github.com/L3MON4D3/LuaSnip',
-		-- config = function()
-		-- 	require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/Code/User/snippets/global.json" } })
-		-- end,
-	},
-	'https://github.com/saadparwaiz1/cmp_luasnip',
-	-- 'https://github.com/rafamadriz/friendly-snippets',
-
-	-- misc
-	'https://github.com/editorconfig/editorconfig-vim',
-	-- 'https://github.com/lukas-reineke/indent-blankline.nvim',
+	-- comment
+	--
+	-- TODO: replace with https://github.com/tpope/vim-commentary ?
 	{
 		'https://github.com/numToStr/Comment.nvim',
 		config = function()
 			require('Comment').setup()
 		end,
 	},
-	-- fzf
-	'https://github.com/junegunn/fzf',
-	'https://github.com/junegunn/fzf.vim',
-}, {})
 
--- Keybindings
-vim.api.nvim_create_autocmd('LspAttach', {
-	desc = 'LSP actions',
-	callback = function()
-		local bufmap = function(mode, lhs, rhs)
-			local opts = {buffer = true}
-			vim.keymap.set(mode, lhs, rhs, opts)
-		end
-		bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-		bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-		bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-		bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-		bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-		bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-		bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-		bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
-		bufmap('n', '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
-		bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-		bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
-		bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-		bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-		bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-	end
+	-- copilot
+	{
+		'https://github.com/github/copilot.vim',
+		name = 'copilot.vim',
+	},
+	-- {
+	-- 	'https://github.com/zbirenbaum/copilot.lua'
+	-- 	name = 'copilot.lua',
+	-- }
+
+	-- editorconfig
+	'https://github.com/editorconfig/editorconfig-vim',
+
+	-- fzf
+	{
+		'https://github.com/junegunn/fzf',
+		name = 'fzf',
+	},
+	{
+		'https://github.com/junegunn/fzf.vim',
+		dependencies = { 'fzf' },
+		config = function()
+			vim.cmd([[
+				nnoremap <C-p> :GFiles!<Cr>
+				command! -bang -nargs=* GGrep
+					\ call fzf#vim#grep(
+					\ 'git grep --line-number -- '.shellescape(<q-args>), 0,
+					\ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+				nnoremap <C-g> :GGrep!<Cr>
+			]])
+		end,
+	},
+
+	-- gitgutter
+	'https://github.com/airblade/vim-gitgutter',
+
+	-- netrw
+	{
+		'https://github.com/tpope/vim-vinegar',
+		lazy = false,
+	},
+
+	-- sleuth
+	'https://github.com/tpope/vim-sleuth',
+
+	-- complex stuff ---------------------------------------------------------------
+
+	-- cmp
+	{
+		'https://github.com/hrsh7th/nvim-cmp',
+		name = 'nvim-cmp',
+		config = function()
+			vim.opt.completeopt = {'menu', 'menuone', 'preview', 'noinsert', 'noselect'}
+			local cmp = require('cmp')
+			cmp.setup({
+				-- snippet = {
+				-- 	expand = function(args)
+				-- 		luasnip.lsp_expand(args.body)
+				-- 	end
+				-- },
+				sources = {
+					-- {name = 'luasnip', keyword_length = 2},
+					{ name = 'buffer', },
+					{ name = 'copilot', },
+					{ name = 'emoji', },
+					{ name = 'nvim_lsp', },
+					{ name = 'path', },
+				},
+				window = {
+					documentation = cmp.config.window.bordered()
+				},
+				formatting = {
+					fields = {'menu', 'abbr', 'kind'},
+					format = function(entry, item)
+						local menu_icon = {
+							buffer        = 'buffer',
+							copilot       = 'copilot',
+							emoji         = 'emoji',
+							nvim_lsp      = 'nvim_lsp',
+							path          = 'path',
+						}
+						item.menu = menu_icon[entry.source.name]
+						return item
+					end,
+				},
+				mapping = {
+					['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
+					['<C-n>'] = cmp.mapping.select_next_item(select_opts),
+					['<C-u>'] = cmp.mapping.scroll_docs(-4),
+					['<C-d>'] = cmp.mapping.scroll_docs(4),
+					['<C-e>'] = cmp.mapping.abort(),
+					['<C-y>'] = cmp.mapping.confirm({select = true}),
+					['<CR>'] = cmp.mapping.confirm({select = false}),
+					-- ['<C-f>'] = cmp.mapping(function(fallback)
+					-- 	if luasnip.jumpable(1) then
+					-- 		luasnip.jump(1)
+					-- 	else
+					-- 		fallback()
+					-- 	end
+					-- end, {'i', 's'}),
+					-- ['<C-b>'] = cmp.mapping(function(fallback)
+					-- 	if luasnip.jumpable(-1) then
+					-- 		luasnip.jump(-1)
+					-- 	else
+					-- 		fallback()
+					-- 	end
+					-- end, {'i', 's'}),
+					['<Tab>'] = cmp.mapping(function(fallback)
+						local col = vim.fn.col('.') - 1
+						if cmp.visible() then
+							cmp.select_next_item(select_opts)
+						elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+							fallback()
+						else
+							cmp.complete()
+						end
+					end, {'i', 's'}),
+					['<S-Tab>'] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item(select_opts)
+						else
+							fallback()
+						end
+					end, {'i', 's'}),
+				},
+			})
+		end,
+
+	},
+	-- { 'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help', dependencies = { 'nvim-cmp', 'nvim-lspconfig', }, },
+	-- { 'https://github.com/hrsh7th/cmp-vsnip', dependencies = { 'nvim-cmp', 'vim-vsnip', }, },
+	-- { 'https://github.com/zbirenbaum/copilot-cmp', dependencies = { 'copilot.lua', 'nvim-cmp', }, },
+	-- { 'https://github.com/amarakon/nvim-cmp-buffer-lines', dependencies = { 'nvim-cmp', }, },
+	{ 'https://github.com/hrsh7th/cmp-buffer', dependencies = { 'nvim-cmp', }, },
+	{ 'https://github.com/hrsh7th/cmp-copilot', dependencies = { 'copilot.vim', 'nvim-cmp', }, },
+	{ 'https://github.com/hrsh7th/cmp-emoji', dependencies = { 'nvim-cmp', }, },
+	{ 'https://github.com/hrsh7th/cmp-nvim-lsp', dependencies = { 'nvim-cmp', 'nvim-lspconfig', }, },
+	{ 'https://github.com/hrsh7th/cmp-path', dependencies = { 'nvim-cmp', }, },
+
+	-- lsp
+	{
+		'https://github.com/neovim/nvim-lspconfig',
+		name = 'nvim-lspconfig',
+		lazy = false,
+		dependencies = { 'mason-lspconfig.nvim', 'neodev.nvim', },
+		config = function()
+			vim.api.nvim_create_autocmd('LspAttach', {
+				desc = 'LSP actions',
+				callback = function()
+					local bufmap = function(mode, lhs, rhs)
+						local opts = {buffer = true}
+						vim.keymap.set(mode, lhs, rhs, opts)
+					end
+					bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+					bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+					bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+					bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+					bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+					bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+					bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+					bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
+					bufmap('n', '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
+					bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+					bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
+					bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+					bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+					bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+				end
+			})
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
+			local lspconfig = require('lspconfig')
+			lspconfig.bashls.setup({})
+			lspconfig.clangd.setup({})
+			lspconfig.clojure_lsp.setup({})
+			lspconfig.cssls.setup({})
+			lspconfig.cssmodules_ls.setup({})
+			lspconfig.docker_compose_language_service.setup({})
+			lspconfig.dockerls.setup({})
+			lspconfig.gopls.setup({})
+			lspconfig.graphql.setup({})
+			-- lspconfig.helm_ls.setup({})
+			lspconfig.html.setup({ capabilities = capabilities, })
+			lspconfig.jdtls.setup({})
+			lspconfig.jsonls.setup({ capabilities = capabilities, })
+			lspconfig.lua_ls.setup({}) -- FIXME.
+			lspconfig.prismals.setup({})
+			lspconfig.pyright.setup({})
+			lspconfig.quick_lint_js.setup({})
+			lspconfig.rnix.setup({})
+			lspconfig.solidity_ls.setup({}) -- lspconfig.solang.setup{}
+			lspconfig.sqlls.setup({}) -- lspconfig.sqls.setup{}
+			lspconfig.tailwindcss.setup({})
+			lspconfig.terraform_lsp.setup({})
+			lspconfig.tsserver.setup({})
+			lspconfig.vimls.setup({})
+			lspconfig.yamlls.setup({})
+		end,
+	},
+	{
+		'https://github.com/williamboman/mason.nvim',
+		name = 'mason.nvim',
+		build = ':MasonUpdate',
+		config = function()
+			require('mason').setup()
+		end,
+	},
+	{
+		'https://github.com/williamboman/mason-lspconfig.nvim',
+		name = 'mason-lspconfig.nvim',
+		config = function()
+			require('mason-lspconfig').setup()
+		end,
+		dependencies = { 'mason.nvim', },
+	},
+	{
+		'https://github.com/folke/neodev.nvim',
+		name = 'neodev.nvim',
+		config = function()
+			require('neodev').setup()
+		end,
+	},
 })
 
--- signs
 local sign = function(opts)
 	vim.fn.sign_define(opts.name, {
 		texthl = opts.name,
@@ -228,81 +327,3 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 	vim.lsp.handlers.signature_help,
 	{border = 'rounded'}
 )
-
--- cmp and luasnip
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
-require('luasnip.loaders.from_vscode').lazy_load()
-local cmp = require('cmp')
-local luasnip = require('luasnip')
-local select_opts = {behavior = cmp.SelectBehavior.Select}
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end
-	},
-	sources = {
-		{name = 'path'},
-		{name = 'nvim_lsp', keyword_length = 1},
-		{name = 'buffer', keyword_length = 3},
-		{name = 'luasnip', keyword_length = 2},
-	},
-	window = {
-		documentation = cmp.config.window.bordered()
-	},
-	formatting = {
-		fields = {'menu', 'abbr', 'kind'},
-		format = function(entry, item)
-			local menu_icon = {
-				nvim_lsp = 'λ',
-				luasnip = '⋗',
-				buffer = 'Ω',
-				path = ' ',
-			}
-			item.menu = menu_icon[entry.source.name]
-			return item
-		end,
-	},
-	mapping = {
-		['<Up>'] = cmp.mapping.select_prev_item(select_opts),
-		['<Down>'] = cmp.mapping.select_next_item(select_opts),
-		['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
-		['<C-n>'] = cmp.mapping.select_next_item(select_opts),
-		['<C-u>'] = cmp.mapping.scroll_docs(-4),
-		['<C-d>'] = cmp.mapping.scroll_docs(4),
-		['<C-e>'] = cmp.mapping.abort(),
-		['<C-y>'] = cmp.mapping.confirm({select = true}),
-		['<CR>'] = cmp.mapping.confirm({select = false}),
-		['<C-f>'] = cmp.mapping(function(fallback)
-			if luasnip.jumpable(1) then
-				luasnip.jump(1)
-			else
-				fallback()
-			end
-		end, {'i', 's'}),
-		['<C-b>'] = cmp.mapping(function(fallback)
-			if luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, {'i', 's'}),
-		['<Tab>'] = cmp.mapping(function(fallback)
-			local col = vim.fn.col('.') - 1
-			if cmp.visible() then
-				cmp.select_next_item(select_opts)
-			elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-				fallback()
-			else
-				cmp.complete()
-			end
-		end, {'i', 's'}),
-		['<S-Tab>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item(select_opts)
-			else
-				fallback()
-			end
-		end, {'i', 's'}),
-	},
-})
