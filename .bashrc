@@ -24,7 +24,7 @@ case "$(uname -n)" in
 			tmux source-file "${HOME}/.tmux.conf"
 		fi
 		# .profile does does not load by default:
-		. "${HOME:-~}/.profile"
+		. "${HOME}/.profile"
 		;;
 esac
 
