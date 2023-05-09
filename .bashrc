@@ -140,13 +140,11 @@ tmp()
 
 vimrc()
 {
-	cd "${HOME}/.vim/." || exit 1
-	vim vimrc
+	vim "${HOME}/.vim/."
 }
 nvimrc()
 {
-	cd "${HOME}/.config/nvim/." || exit 1
-	nvim init.lua
+	nvim "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim/."
 }
 
 ################################################################################
