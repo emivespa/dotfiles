@@ -1,4 +1,4 @@
-! xrdb ~/.Xresources
+! xrdb -load ~/.Xresources
 
 ! Theme adapted from Asciinema, changes:
 *color1:      rgb:dd/3c/69
