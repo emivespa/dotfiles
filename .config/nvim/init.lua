@@ -10,6 +10,7 @@ vim.o.autowrite = true
 vim.o.background = 'dark'
 vim.o.backspace = 'indent,eol,start' -- Backspace over anything.
 vim.o.breakindent = true
+vim.o.clipboard = 'unnamedplus'
 vim.o.confirm = true -- Have destructive commands y-n prompt instead of fail.
 vim.o.encoding = 'utf-8'
 vim.o.foldenable = true
