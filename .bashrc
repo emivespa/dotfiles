@@ -153,7 +153,6 @@ nvimrc()
 
 # aws
 complete -C '/usr/local/bin/aws_completer' aws
-export capiam='--capabilities CAPABILITY_IAM'
 
 # fzf
 #
@@ -169,7 +168,8 @@ export FZF_COMPLETION_OPTS='--height 24'
 # 	alias k=kubecolor
 # fi
 if command -v kubectl >/dev/null 2>&1; then
-	source <(kubectl completion bash)
+	# source <(kubectl completion bash)
+	eval "$(kubectl completion bash)"
 	complete -o default -F __start_kubectl k
 fi
 # Shortcuts

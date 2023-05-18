@@ -8,6 +8,8 @@
 # According to asottile debian/ubuntu changed the default umask for unknown
 # reasons.
 
+export DOTPROFILE_LOADED=1
+
 ################################################################################
 
 # env
@@ -15,7 +17,7 @@
 export EDITOR=vi; export VISUAL="$EDITOR"
 export LANG=en_US.UTF-8
 export LC_COLLATE=C # Sort asciibetically.
-export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
+# export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
 export PAGER=less
 
 BROWSER=firefox # Fallback, but it's a snap on Ubuntu, so prefer firefox-esr:
@@ -29,11 +31,12 @@ export BROWSER
 # https://git.sr.ht/~sircmpwn/dotfiles/tree/master/item/.profile
 #
 # TODO: prevent repeats.
-PATH="${GOPATH:-${HOME}/go}/bin:${PATH}"            # go bins
-PATH="${CARGO_HOME:-${HOME}/.cargo}/bin:${PATH}"    # rust bins
-PATH="/usr/local/go/bin:${PATH}"                    # go install requires this
-PATH="${HOME}/.local/bin:${PATH}"                   # docker, pip, etc. use this
-PATH="${HOME}/bin/ignore:${PATH}"                   # personal ignored by CVS
+PATH="${HOME}/.npm-global/bin:${PATH}"            # fake npm i -g
+PATH="${GOPATH:-${HOME}/go}/bin:${PATH}"          # go bins
+PATH="${CARGO_HOME:-${HOME}/.cargo}/bin:${PATH}"  # rust bins
+PATH="/usr/local/go/bin:${PATH}"                  # go install requires this
+PATH="${HOME}/.local/bin:${PATH}"                 # docker, pip, etc. use this
+PATH="${HOME}/bin/ignore:${PATH}"                 # personal ignored by CVS
 # PATH="${HOME}/bin/$(uname -s)+$(uname -m):${PATH}"  # personal by kernel+arch
 PATH="${HOME}/bin:${PATH}"                          # personal
 export PATH
