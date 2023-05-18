@@ -22,7 +22,6 @@
 *color15:     rgb:d9/d9/d9
 
 *font: xft:Menlo:size=11
-! *font: xft:Ubuntu Mono:size=12
 
 ! urxvt
 !
@@ -40,7 +39,7 @@ urxvt.scrollBar: false
 XTerm.Maximized: true
 ! https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8
 XTerm.utf8: 2
-XTerm.VT100.Geometry: 80x50
+XTerm.VT100.Geometry: 80x25
 ! Make alt key normal:
 XTerm.vt100.metaSendsEscape: true
 ! Make Ctrl+Shift+x/c/v work as expected:
