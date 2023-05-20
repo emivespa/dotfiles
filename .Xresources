@@ -47,3 +47,4 @@ XTerm.VT100.Translations:       #override\n\
 	Shift Ctrl <KeyPress> x: cut-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> v: insert-selection(CLIPBOARD)\n
+XTerm.VT100.cursorBlink: never
