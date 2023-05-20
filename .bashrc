@@ -3,6 +3,10 @@
 # /etc/bash.bashrc
 # /etc/skel/.bashrc
 
+if test "$DOTPROFILE_LOADED" = ''; then
+	. "${HOME}/.profile"
+fi
+
 case "$-" in
 	(*'i'*) ;;
 	(*) return ;;
@@ -35,7 +39,7 @@ esac
 export HISTCONTROL=ignorespace
 export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status'
 	# "Where am I?" command spam.
-export HISTSIZE=5000
+export HISTFILESIZE='' HISTSIZE='' # Eternal bash history.
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
 
@@ -101,11 +105,11 @@ _PS1_git()
 # [ exit_status? kubectx:kubens? user@host pwd git_branch? ]
 # $
 PS1+='['
-PS1+="\[$(tput sgr0; tput setaf 1             )\]\$(_PS1_ex)"
-PS1+="\[$(tput sgr0; tput setaf 6             )\]\$(_PS1_k8s)"
+PS1+="\[$(tput sgr0; tput setaf 1             )\]\$(command -v _PS1_ex >/dev/null 2>&1 && _PS1_ex)"
+PS1+="\[$(tput sgr0; tput setaf 6             )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"
 PS1+="\[$(tput sgr0; tput setaf 2; tput bold  )\]\u@\H"
 PS1+="\[$(tput sgr0; tput setaf 4; tput bold  )\] \w"
-PS1+="\[$(tput sgr0; tput setaf 2             )\]\$(_PS1_git)"
+PS1+="\[$(tput sgr0; tput setaf 2             )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"
 PS1+="\[$(tput sgr0                           )\]]\n\$ "
 export PS1
 
@@ -140,11 +144,11 @@ tmp()
 
 vimrc()
 {
-	vim "${HOME}/.vim/."
+	vim "${HOME}/.vim/vimrc"
 }
 nvimrc()
 {
-	nvim "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim/."
+	nvim "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim/init.lua"
 }
 
 ################################################################################
@@ -157,11 +161,16 @@ complete -C '/usr/local/bin/aws_completer' aws
 # fzf
 #
 # /usr/share/doc/fzf/README.Debian
-test -f /usr/share/doc/fzf/examples/completion.bash &&
-	\. /usr/share/doc/fzf/examples/completion.bash
-test -f /usr/share/doc/fzf/examples/key-bindings.bash &&
-	\. /usr/share/doc/fzf/examples/key-bindings.bash
+# test -f /usr/share/doc/fzf/examples/completion.bash &&
+# 	\. /usr/share/doc/fzf/examples/completion.bash
+# test -f /usr/share/doc/fzf/examples/key-bindings.bash &&
+# 	\. /usr/share/doc/fzf/examples/key-bindings.bash
+if command -v fzf-share >/dev/null; then
+	source "$(fzf-share)/key-bindings.bash"
+	source "$(fzf-share)/completion.bash"
+fi
 export FZF_COMPLETION_OPTS='--height 24'
+
 
 # kubectl
 # if command -v kubecolor >/dev/null 2>&1; then
@@ -182,15 +191,14 @@ export draml='--dry-run=client -o yaml'
 # export NVM_DIR="$HOME/.config/nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#
 # fnm
 #
 # (Faster alternative, <https://github.com/Schniz/fnm>.)
-FNM_PATH="${HOME}/.local/share/fnm"
-if test -d "${FNM_PATH}"; then
-	export PATH="${HOME}/.local/share/fnm:${PATH}"
-	eval "$(fnm env)"
-fi
+# FNM_PATH="${HOME}/.local/share/fnm"
+# if test -d "${FNM_PATH}"; then
+# 	export PATH="${HOME}/.local/share/fnm:${PATH}"
+# 	eval "$(fnm env)"
+# fi
 
 # pnpm
 export PNPM_HOME="/home/pilcha/.local/share/pnpm"
