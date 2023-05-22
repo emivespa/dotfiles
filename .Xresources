@@ -1,6 +1,6 @@
 ! xrdb -load ~/.Xresources
 
-! Theme adapted from Asciinema, changes:
+! Theme adapted from Asciinema, some changes.
 *color1:      rgb:dd/3c/69
 *color2:      rgb:4e/bf/22
 *color3:      rgb:dd/af/3c
@@ -13,7 +13,7 @@
 *color12:     rgb:26/b0/d7
 *color13:     rgb:b9/54/e1
 *color14:     rgb:54/e1/b9
-! Changes from asciinema:
+! Changes:
 *foreground:  rgb:ff/ff/ff
 *background:  rgb:00/00/00
 *color0:      rgb:12/13/14
@@ -43,7 +43,7 @@ XTerm.VT100.Geometry: 80x25
 ! Make alt key normal:
 XTerm.vt100.metaSendsEscape: true
 ! Make Ctrl+Shift+x/c/v work as expected:
-XTerm.VT100.Translations:       #override\n\
+XTerm.VT100.Translations: #override\n\
 	Shift Ctrl <KeyPress> x: cut-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> v: insert-selection(CLIPBOARD)\n
