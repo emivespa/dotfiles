@@ -24,7 +24,7 @@ trim_trailing_whitespace = true
 
 # General purpose convention and style guide compliance:
 
-[*.{js,jsx,json,lua,ts,tsx,yaml,yml}]
+[*.{js,jsx,json,lua,nix,ts,tsx,yaml,yml}]
 indent_size = 2
 indent_style = space
 

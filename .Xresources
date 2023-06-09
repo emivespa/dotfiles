@@ -1,27 +1,29 @@
-! xrdb -load ~/.Xresources
+! xrdb ~/.Xresources
 
-! Theme adapted from Asciinema, some changes.
-*color1:      rgb:dd/3c/69
-*color2:      rgb:4e/bf/22
-*color3:      rgb:dd/af/3c
-*color4:      rgb:26/b0/d7
-*color5:      rgb:b9/54/e1
-*color6:      rgb:54/e1/b9
-*color9:      rgb:dd/3c/69
-*color10:     rgb:4e/bf/22
-*color11:     rgb:dd/af/3c
-*color12:     rgb:26/b0/d7
-*color13:     rgb:b9/54/e1
-*color14:     rgb:54/e1/b9
-! Changes:
-*foreground:  rgb:ff/ff/ff
-*background:  rgb:00/00/00
-*color0:      rgb:12/13/14
-*color7:      rgb:cc/cc/cc
-*color8:      rgb:4d/4d/4d
-*color15:     rgb:d9/d9/d9
+*font: xft:Ubuntu Mono:size=12
 
-*font: xft:Menlo:size=11
+! white on black:
+XTerm.vt100.reverseVideo: true
+! *background:   #241f31
+! *foreground:  #f6f5f4
+
+! theme stolen from kgx terminal emulator:
+*color0:   #241f31
+*color1:   #c01c28
+*color2:   #2ec27e
+*color3:   #f5c211
+*color4:   #1e78e4
+*color5:   #9841bb
+*color6:   #0ab9dc
+*color7:   #c0bfbc
+*color8:   #5e5c64
+*color9:   #ed333b
+*color10:  #57e389
+*color11:  #f8e45c
+*color12:  #51a1ff
+*color13:  #c061cb
+*color14:  #4fd2fd
+*color15:  #f6f5f4
 
 ! urxvt
 !

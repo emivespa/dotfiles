@@ -37,8 +37,7 @@ esac
 # env
 
 export HISTCONTROL=ignorespace
-export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status'
-	# "Where am I?" command spam.
+export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
 export HISTFILESIZE='' HISTSIZE='' # Eternal bash history.
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
@@ -56,6 +55,15 @@ _PS1_ex()
 	# Last exit status if it wasn't 0.
 	local ex="$?"
 	test "$ex" -ne '0' && printf %s "${ex} "
+}
+_PS1_jobs()
+{
+	local jobs="$(jobs | wc -l)"
+	case "$jobs" in
+		('0') ;;
+		('1') printf %s "${jobs}_job " ;;
+		(*) printf %s "${jobs}_jobs " ;;
+	esac
 }
 _PS1_k8s()
 {
@@ -102,15 +110,24 @@ _PS1_git()
 	fi
 	return 1
 }
-# [ exit_status? kubectx:kubens? user@host pwd git_branch? ]
+_PS1_sudo()
+{
+	if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+		printf %s " sudo"
+	fi
+}
+# Full example:
+# [130 1bg minikube:default user@host ~/src master(shallow)]
 # $
 PS1+='['
-PS1+="\[$(tput sgr0; tput setaf 1             )\]\$(command -v _PS1_ex >/dev/null 2>&1 && _PS1_ex)"
-PS1+="\[$(tput sgr0; tput setaf 6             )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"
-PS1+="\[$(tput sgr0; tput setaf 2; tput bold  )\]\u@\H"
-PS1+="\[$(tput sgr0; tput setaf 4; tput bold  )\] \w"
-PS1+="\[$(tput sgr0; tput setaf 2             )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"
-PS1+="\[$(tput sgr0                           )\]]\n\$ "
+PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)" # Can't do `command -v` here.
+PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"
+PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"
+PS1+="\[$(tput sgr0 setaf 2 bold  )\]\u@\H"
+PS1+="\[$(tput sgr0 setaf 4 bold  )\] \w"
+PS1+="\[$(tput sgr0 setaf 2       )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"
+PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"
+PS1+="\[$(tput sgr0               )\]]\n\$ "
 export PS1
 
 ################################################################################
@@ -130,7 +147,7 @@ if command grep --version >/dev/null 2>&1; then
 fi
 
 if command ls --version >/dev/null 2>&1; then
-	alias ls='ls -w80 --color=auto --group-directories-first'
+	alias ls='ls -w80 --color=auto'
 fi
 
 tmp()
@@ -142,13 +159,12 @@ tmp()
 	cd "$d" || exit 1
 }
 
-vimrc()
+todo()
 {
-	vim "${HOME}/.vim/vimrc"
-}
-nvimrc()
-{
-	nvim "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim/init.lua"
+	pushd ~/TODO || exit 1
+	${VISUAL:-${EDITOR:-nano}} README
+	make
+	popd
 }
 
 ################################################################################
@@ -161,16 +177,14 @@ complete -C '/usr/local/bin/aws_completer' aws
 # fzf
 #
 # /usr/share/doc/fzf/README.Debian
-# test -f /usr/share/doc/fzf/examples/completion.bash &&
-# 	\. /usr/share/doc/fzf/examples/completion.bash
-# test -f /usr/share/doc/fzf/examples/key-bindings.bash &&
-# 	\. /usr/share/doc/fzf/examples/key-bindings.bash
 if command -v fzf-share >/dev/null; then
 	source "$(fzf-share)/key-bindings.bash"
 	source "$(fzf-share)/completion.bash"
+else
+	test -f /usr/share/doc/fzf/examples/completion.bash && \. /usr/share/doc/fzf/examples/completion.bash
+	test -f /usr/share/doc/fzf/examples/key-bindings.bash && \. /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 export FZF_COMPLETION_OPTS='--height 24'
-
 
 # kubectl
 # if command -v kubecolor >/dev/null 2>&1; then
@@ -203,8 +217,8 @@ export draml='--dry-run=client -o yaml'
 # pnpm
 export PNPM_HOME="/home/pilcha/.local/share/pnpm"
 case ":$PATH:" in
-	*":$PNPM_HOME:"*) ;;
-	*) export PATH="$PNPM_HOME:$PATH" ;;
+	(*":$PNPM_HOME:"*) ;;
+	(*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 # terraform

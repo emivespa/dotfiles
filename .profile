@@ -17,7 +17,7 @@ export DOTPROFILE_LOADED=1
 export EDITOR=vi; export VISUAL="$EDITOR"
 export LANG=en_US.UTF-8
 export LC_COLLATE=C # Sort asciibetically.
-# export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
+export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
 export PAGER=less
 
 BROWSER=firefox # Fallback, but it's a snap on Ubuntu, so prefer firefox-esr:
@@ -31,7 +31,7 @@ export BROWSER
 # https://git.sr.ht/~sircmpwn/dotfiles/tree/master/item/.profile
 #
 # TODO: prevent repeats.
-PATH="${HOME}/.npm-global/bin:${PATH}"            # fake npm i -g
+PATH="${HOME}/.npm-global/bin:${PATH}"            # fake npm i -g (can't npm i -g on nix)
 PATH="${GOPATH:-${HOME}/go}/bin:${PATH}"          # go bins
 PATH="${CARGO_HOME:-${HOME}/.cargo}/bin:${PATH}"  # rust bins
 PATH="/usr/local/go/bin:${PATH}"                  # go install requires this
