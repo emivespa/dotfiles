@@ -1,0 +1,9 @@
+[alias]
+	ca = commit --amend
+	cv = commit --verbose
+	ss = status --short
+[commit]
+	gpgsign = true
+[user]
+	email = emivespa1@gmail.com
+	name = Emilio Vesprini
