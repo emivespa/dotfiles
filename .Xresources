@@ -1,29 +1,7 @@
 ! xrdb ~/.Xresources
 
-*font: xft:Ubuntu Mono:size=12
-
-! white on black:
-XTerm.vt100.reverseVideo: true
-! *background:   #241f31
-! *foreground:  #f6f5f4
-
-! theme stolen from kgx terminal emulator:
-*color0:   #241f31
-*color1:   #c01c28
-*color2:   #2ec27e
-*color3:   #f5c211
-*color4:   #1e78e4
-*color5:   #9841bb
-*color6:   #0ab9dc
-*color7:   #c0bfbc
-*color8:   #5e5c64
-*color9:   #ed333b
-*color10:  #57e389
-*color11:  #f8e45c
-*color12:  #51a1ff
-*color13:  #c061cb
-*color14:  #4fd2fd
-*color15:  #f6f5f4
+*font: xft:Ubuntu Mono:size=11
+! *font: xft:monospace:size=11
 
 ! urxvt
 !
@@ -50,3 +28,30 @@ XTerm.VT100.Translations: #override\n\
 	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> v: insert-selection(CLIPBOARD)\n
 XTerm.VT100.cursorBlink: never
+
+*background: #000000
+*foreground: #ffffff
+
+! Colour scheme: Tempus Night
+! Description: High contrast dark theme with bright colours (WCAG AAA compliant)
+! Author: Protesilaos Stavrou (https://protesilaos.com)
+! *background: #1a1a1a
+! *foreground: #e0e0e0
+! *cursorColor: #e0e0e0
+! *cursorColor2: #1a1a1a
+*color0: #1a1a1a
+*color1: #ff929f
+*color2: #5fc940
+*color3: #c5b300
+*color4: #5fb8ff
+*color5: #ef91df
+*color6: #1dc5c3
+*color7: #c4bdaf
+*color8: #242536
+*color9: #f69d6a
+*color10: #88c400
+*color11: #d7ae00
+*color12: #8cb4f0
+*color13: #de99f0
+*color14: #00ca9a
+*color15: #e0e0e0

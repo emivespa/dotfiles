@@ -38,7 +38,7 @@ esac
 
 export HISTCONTROL=ignorespace
 export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
-export HISTFILESIZE='' HISTSIZE='' # Eternal bash history.
+export HISTFILESIZE='' HISTSIZE='' # Eternal bash history because why not.
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
 
@@ -58,12 +58,20 @@ _PS1_ex()
 }
 _PS1_jobs()
 {
-	local jobs="$(jobs | wc -l)"
-	case "$jobs" in
-		('0') ;;
-		('1') printf %s "${jobs}_job " ;;
-		(*) printf %s "${jobs}_jobs " ;;
-	esac
+	output=''
+	local rjobs="$(jobs -r | wc -l)"
+	if test "$rjobs" -ne '0'; then
+		output="${rjobs} Running"
+	fi
+	local sjobs="$(jobs -s | wc -l)"
+	if test "$sjobs" -ne '0'; then
+		if test "$rjobs" -ne '0'; then
+			output="${output}, ${sjobs} Stopped"
+		else
+			output="${sjobs} Stopped"
+		fi
+	fi
+	test -n "$output" && printf %s "(${output}) "
 }
 _PS1_k8s()
 {
@@ -79,6 +87,7 @@ _PS1_k8s()
 }
 _PS1_git()
 {
+	local output=''
 	# Git branch if a .git is found.
 	# Pure bash (meaning no forking meaning fast) alternative to __git_ps1 (100ms -> 1ms).
 	# https://gist.github.com/bingzhangdai/dd4e283a14290c079a76c4ba17f19d69
@@ -95,17 +104,18 @@ _PS1_git()
 		local head
 		read -r head <"$head_file" || return
 		case "$head" in
-			(ref:*) printf %s " ${head#ref: refs/heads/}" ;;
+			(ref:*) output="${head#ref: refs/heads/}" ;;
 			('') ;;
 			(*)
 				# Detached HEAD.
 				# BUG(wontfix): stuck to 7 char short SHAs.
-				printf %s " ${head:0:7}"
+				output="${head:0:7}"
 				;;
 		esac
 		if test -f "${dir}/.git/shallow"; then
-			printf %s "(shallow)"
+			output="(${output}, shallow)"
 		fi
+		test -n "$output" && printf %s " $output"
 		return 0
 	fi
 	return 1
@@ -113,20 +123,27 @@ _PS1_git()
 _PS1_sudo()
 {
 	if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
-		printf %s " sudo"
+		printf %s "sudo "
+	fi
+}
+_PS1_nix()
+{
+	if test -n "$IN_NIX_SHELL"; then
+		printf %s " IN_NIX_SHELL"
 	fi
 }
 # Full example:
 # [130 1bg minikube:default user@host ~/src master(shallow)]
 # $
 PS1+='['
-PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)" # Can't do `command -v` here.
+PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)" # Can't do `command -v` here, would change $?.
+PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"
 PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"
-PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"
 PS1+="\[$(tput sgr0 setaf 2 bold  )\]\u@\H"
 PS1+="\[$(tput sgr0 setaf 4 bold  )\] \w"
+PS1+="\[$(tput sgr0 setaf 4       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"
 PS1+="\[$(tput sgr0 setaf 2       )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"
-PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"
+PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"
 PS1+="\[$(tput sgr0               )\]]\n\$ "
 export PS1
 
@@ -164,7 +181,7 @@ todo()
 	pushd ~/TODO || exit 1
 	${VISUAL:-${EDITOR:-nano}} README
 	make
-	popd
+	popd || exit 1
 }
 
 ################################################################################
@@ -173,6 +190,9 @@ todo()
 
 # aws
 complete -C '/usr/local/bin/aws_completer' aws
+
+# direnv
+eval "$(direnv hook bash)"
 
 # fzf
 #
@@ -185,6 +205,11 @@ else
 	test -f /usr/share/doc/fzf/examples/key-bindings.bash && \. /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 export FZF_COMPLETION_OPTS='--height 24'
+
+# home-manager
+#
+# TODO: should this be in ~/.profile instead?
+. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 # kubectl
 # if command -v kubecolor >/dev/null 2>&1; then
@@ -208,11 +233,11 @@ export draml='--dry-run=client -o yaml'
 # fnm
 #
 # (Faster alternative, <https://github.com/Schniz/fnm>.)
-# FNM_PATH="${HOME}/.local/share/fnm"
-# if test -d "${FNM_PATH}"; then
-# 	export PATH="${HOME}/.local/share/fnm:${PATH}"
-# 	eval "$(fnm env)"
-# fi
+FNM_PATH="${HOME}/.local/share/fnm"
+if test -d "${FNM_PATH}"; then
+	export PATH="${HOME}/.local/share/fnm:${PATH}"
+	eval "$(fnm env)"
+fi
 
 # pnpm
 export PNPM_HOME="/home/pilcha/.local/share/pnpm"
@@ -227,6 +252,10 @@ complete -C /home/pilcha/bin/ignore/terraform terraform
 # youtube-dl and yt-dlp
 export mp3='--audio-format mp3 --audio-quality 0 -x -f bestaudio --no-playlist'
 export mp3p='--audio-format mp3 --audio-quality 0 -x -f bestaudio --yes-playlist'
+alias yt-mp3="yt-dlp $mp3"
+alias yt-mp3p="yt-dlp $mp3p"
+
+alias clear='sleep 1; false'
 
 ################################################################################
 

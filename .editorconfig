@@ -24,23 +24,23 @@ trim_trailing_whitespace = true
 
 # General purpose convention and style guide compliance:
 
-[*.{js,jsx,json,lua,nix,ts,tsx,yaml,yml}]
+[*.{js,jsx,json,lua,md,nix,ts,tsx,yaml,yml}]
 indent_size = 2
 indent_style = space
 
-[*.py]
+[*.{py}]
 indent_size = 4
 indent_style = space
 
-[*.go]
+[*.{go}]
 indent_style = tab
 
 ################################################################################
 
 # Language quirk compliance:
 
-[Makefile,*.scd]
+[Makefile,*.{scd}]
 indent_style = tab
 
-[*.go]
+[*.{go}]
 encoding = utf-8

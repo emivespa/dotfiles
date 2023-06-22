@@ -21,5 +21,5 @@ set show-mode-in-prompt on
 # 	set vi-cmd-mode-string \1\e[2 q\2
 # $endif
 
-C-L: clear-screen
-	# Is a de-facto standard of sorts but doesn't always work everywhere.
+# C-L: clear-screen
+# 	# Is a de-facto standard of sorts but doesn't always work everywhere.
