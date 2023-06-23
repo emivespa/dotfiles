@@ -209,7 +209,7 @@ export FZF_COMPLETION_OPTS='--height 24'
 # home-manager
 #
 # TODO: should this be in ~/.profile instead?
-. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+# . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 # kubectl
 # if command -v kubecolor >/dev/null 2>&1; then
