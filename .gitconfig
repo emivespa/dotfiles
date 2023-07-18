@@ -1,6 +1,7 @@
 [alias]
 	ca = commit --amend
 	ss = status --short
+	cane = commit --amend --no-edit
 [commit]
 	; gpgsign = true
 	verbose = true # Include diff below commit message template.

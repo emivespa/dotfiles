@@ -17,7 +17,7 @@ export DOTPROFILE_LOADED=1
 export EDITOR=vi; export VISUAL="$EDITOR"
 export LANG=en_US.UTF-8
 export LC_COLLATE=C # Sort asciibetically.
-export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
+# export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
 export PAGER=less
 
 BROWSER=firefox # Fallback, but it's a snap on Ubuntu, so prefer firefox-esr:

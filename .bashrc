@@ -36,6 +36,8 @@ esac
 
 # env
 
+test -f ~/.env && \. ~/.env
+
 export HISTCONTROL=ignorespace
 export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
 export HISTFILESIZE='' HISTSIZE='' # Eternal bash history because why not.
@@ -71,7 +73,7 @@ _PS1_jobs()
 			output="${sjobs} Stopped"
 		fi
 	fi
-	test -n "$output" && printf %s "(${output}) "
+	test -n "$output" && printf %s " (${output})"
 }
 _PS1_k8s()
 {
@@ -113,9 +115,9 @@ _PS1_git()
 				;;
 		esac
 		if test -f "${dir}/.git/shallow"; then
-			output="(${output}, shallow)"
+			output="${output}, shallow"
 		fi
-		test -n "$output" && printf %s " $output"
+		test -n "$output" && printf %s " ($output)"
 		return 0
 	fi
 	return 1
@@ -123,7 +125,7 @@ _PS1_git()
 _PS1_sudo()
 {
 	if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
-		printf %s "sudo "
+		printf %s " sudo"
 	fi
 }
 _PS1_nix()
@@ -137,13 +139,13 @@ _PS1_nix()
 # $
 PS1+='['
 PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)" # Can't do `command -v` here, would change $?.
-PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"
-PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"
 PS1+="\[$(tput sgr0 setaf 2 bold  )\]\u@\H"
 PS1+="\[$(tput sgr0 setaf 4 bold  )\] \w"
+PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"
 PS1+="\[$(tput sgr0 setaf 4       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"
 PS1+="\[$(tput sgr0 setaf 2       )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"
 PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"
+PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"
 PS1+="\[$(tput sgr0               )\]]\n\$ "
 export PS1
 
@@ -189,7 +191,7 @@ todo()
 # program-specific
 
 # aws
-complete -C '/usr/local/bin/aws_completer' aws
+# complete -C '/usr/local/bin/aws_completer' aws
 
 # direnv
 eval "$(direnv hook bash)"
@@ -204,7 +206,7 @@ else
 	test -f /usr/share/doc/fzf/examples/completion.bash && \. /usr/share/doc/fzf/examples/completion.bash
 	test -f /usr/share/doc/fzf/examples/key-bindings.bash && \. /usr/share/doc/fzf/examples/key-bindings.bash
 fi
-export FZF_COMPLETION_OPTS='--height 24'
+export FZF_COMPLETION_OPTS='--height=100%'
 
 # home-manager
 #
@@ -247,7 +249,7 @@ case ":$PATH:" in
 esac
 
 # terraform
-complete -C /home/pilcha/bin/ignore/terraform terraform
+# complete -C /home/pilcha/bin/ignore/terraform terraform
 
 # youtube-dl and yt-dlp
 export mp3='--audio-format mp3 --audio-quality 0 -x -f bestaudio --no-playlist'
@@ -256,6 +258,11 @@ alias yt-mp3="yt-dlp $mp3"
 alias yt-mp3p="yt-dlp $mp3p"
 
 alias clear='sleep 1; false'
+
+export PRISMA_QUERY_ENGINE_LIBRARY=/run/current-system/sw/lib/libquery_engine.node
+export PRISMA_QUERY_ENGINE_BINARY=/run/current-system/sw/bin/query-engine
+export PRISMA_MIGRATION_ENGINE_BINARY=/run/current-system/sw/bin/migration-engine
+export PRISMA_FMT_BINARY=/run/current-system/sw/bin/prisma-fmt
 
 ################################################################################
 
