@@ -1,0 +1,13 @@
+#!/usr/bin/env -S sed -Ef
+#
+# - convert xcolors to their "safe" variant
+
+# Make sure to use the brighter variant of the 3 darkest colors (red, blue and magenta):
+s =1([[:space:]\n]) =9\1 g
+s =4([[:space:]\n]) =12\1 g
+s =5([[:space:]\n]) =13\1 g
+
+# Make sure to use the darker variant of the 3 brightest colors (green, yellow and cyan):
+s =10([[:space:]\n]) =2\1 g
+s =11([[:space:]\n]) =3\1 g
+s =14([[:space:]\n]) =6\1 g
