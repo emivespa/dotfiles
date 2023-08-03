@@ -1,57 +1,59 @@
 ! xrdb ~/.Xresources
 
-*font: xft:Ubuntu Mono:size=11
-! *font: xft:monospace:size=11
+! ## *
 
-! urxvt
+*font: xft:Menlo:size=11
+
+! Modded Asciinema theme:
+! - #fff on #000
+! - correct hierarchy of 0, 7, 8, 15, background and foreground
+!   - darkest to lightest: background, 0, 8, 7, 15, foreground
+!
+*background:  #000000
+*foreground:  #ffffff
+*color0:      #121314
+*color1:      #dd3c69
+*color2:      #4ebf22
+*color3:      #ddaf3c
+*color4:      #26b0d7
+*color5:      #b954e1
+*color6:      #54e1b9
+*color7:      #cccccc
+*color8:      #4d4d4d
+*color9:      #dd3c69
+*color10:     #4ebf22
+*color11:     #ddaf3c
+*color12:     #26b0d7
+*color13:     #b954e1
+*color14:     #54e1b9
+*color15:     #d9d9d9
+
+! ## urxvt
 !
 ! https://wiki.archlinux.org/title/Rxvt-unicode
 
 urxvt.clipboard.autocopy: true
+! urxvt.cutchars: space, tab, tmux box drawing pipe:
 urxvt.cutchars: " 	│"
-! (space, tab, tmux box drawing pipe)
 urxvt.scrollBar: false
 
-! xterm
+! ## xterm
 !
 ! https://wiki.archlinux.org/title/Xterm
 
-XTerm.Maximized: true
-! https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8
+! Make xterm usable:
+! - utf-8 support:
+!   -  https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8
+! - alt works as expected
+! - ctrl-shift-x/c/v work as expected
 XTerm.utf8: 2
-XTerm.VT100.Geometry: 80x25
-! Make alt key normal:
 XTerm.vt100.metaSendsEscape: true
 ! Make Ctrl+Shift+x/c/v work as expected:
 XTerm.VT100.Translations: #override\n\
 	Shift Ctrl <KeyPress> x: cut-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> v: insert-selection(CLIPBOARD)\n
+
+XTerm.Maximized: true
+XTerm.VT100.Geometry: 80x25
 XTerm.VT100.cursorBlink: never
-
-*background: #000000
-*foreground: #ffffff
-
-! Colour scheme: Tempus Night
-! Description: High contrast dark theme with bright colours (WCAG AAA compliant)
-! Author: Protesilaos Stavrou (https://protesilaos.com)
-! *background: #1a1a1a
-! *foreground: #e0e0e0
-! *cursorColor: #e0e0e0
-! *cursorColor2: #1a1a1a
-*color0: #1a1a1a
-*color1: #ff929f
-*color2: #5fc940
-*color3: #c5b300
-*color4: #5fb8ff
-*color5: #ef91df
-*color6: #1dc5c3
-*color7: #c4bdaf
-*color8: #242536
-*color9: #f69d6a
-*color10: #88c400
-*color11: #d7ae00
-*color12: #8cb4f0
-*color13: #de99f0
-*color14: #00ca9a
-*color15: #e0e0e0
