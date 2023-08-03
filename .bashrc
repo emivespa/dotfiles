@@ -255,11 +255,6 @@ alias yt-mp3p="yt-dlp ${mp3p}"
 
 alias clear='sleep 1; false'
 
-export PRISMA_QUERY_ENGINE_LIBRARY=/run/current-system/sw/lib/libquery_engine.node
-export PRISMA_QUERY_ENGINE_BINARY=/run/current-system/sw/bin/query-engine
-export PRISMA_MIGRATION_ENGINE_BINARY=/run/current-system/sw/bin/migration-engine
-export PRISMA_FMT_BINARY=/run/current-system/sw/bin/prisma-fmt
-
 ################################################################################
 
 return # Rude installs will append to your .bashrc.
