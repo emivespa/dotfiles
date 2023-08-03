@@ -1,46 +1,9 @@
 # https://editorconfig.org/
-#
-# This is meant to be a global, fallback .editorconfig.
-
 root = true
-
-################################################################################
-
 [*]
-
-# Standard:
 encoding = utf-8
 end_of_line = lf
 insert_final_newline = true
-
-# Preferences and fallbacks:
 indent_size = 8
 indent_style = tab
-
-# Convenience:
 trim_trailing_whitespace = true
-
-################################################################################
-
-# General purpose convention and style guide compliance:
-
-[*.{js,jsx,json,lua,md,nix,ts,tsx,yaml,yml}]
-indent_size = 2
-indent_style = space
-
-[*.{py}]
-indent_size = 4
-indent_style = space
-
-[*.{go}]
-indent_style = tab
-
-################################################################################
-
-# Language quirk compliance:
-
-[Makefile,*.{scd}]
-indent_style = tab
-
-[*.{go}]
-encoding = utf-8
