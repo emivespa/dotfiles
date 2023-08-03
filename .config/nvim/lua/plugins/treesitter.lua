@@ -106,17 +106,13 @@ return {
 		config = function()
 			require('rainbow-delimiters.setup')({
 				highlight = {
-					-- 'RainbowDelimiterRed',
-					-- 'RainbowDelimiterGreen',
-					-- 'RainbowDelimiterYellow',
-					-- 'RainbowDelimiterBlue',
-					-- 'RainbowDelimiterViolet',
-					-- 'RainbowDelimiterCyan',
+					'RainbowDelimiterRed',
+					'RainbowDelimiterGreen',
 					'RainbowDelimiterYellow',
-					'RainbowDelimiterViolet',
 					'RainbowDelimiterBlue',
+					'RainbowDelimiterViolet',
+					'RainbowDelimiterCyan',
 				},
-				-- blacklist = {'c', 'cpp'},
 			})
 		end,
 	},
