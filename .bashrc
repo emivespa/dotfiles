@@ -14,7 +14,7 @@ esac
 
 if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ]; then
 	orphan="$(tmux "ls" | grep -v 'attached' | head -n1 | sed -E 's/:.*//')"
-	tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
+	exec tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
 fi
 
 # Hostname-specific config:
@@ -27,8 +27,6 @@ case "$(uname -n)" in
 		if test -n "$TMUX"; then
 			tmux source-file "${HOME}/.tmux.conf"
 		fi
-		# .profile does does not load by default:
-		. "${HOME}/.profile"
 		;;
 esac
 
@@ -36,14 +34,16 @@ esac
 
 # env
 
-test -f ~/.env && \. ~/.env
-
 export HISTCONTROL=ignorespace
 export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
 export HISTFILESIZE='' HISTSIZE='' # Eternal bash history because why not.
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
 
+################################################################################
+
+# prompt
+#
 PS1=''
 # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 #
@@ -52,14 +52,14 @@ PS1=''
 #
 # Also important:
 # https://www.youtube.com/watch?v=ngLwml9XI-I&list=PLWBKAf81pmOaP9naRiNAqug6EBnkPakvY&index=252
-_PS1_ex()
-{
+
+_PS1_ex() {
 	# Last exit status if it wasn't 0.
 	local ex="$?"
 	test "$ex" -ne '0' && printf %s "${ex} "
 }
-_PS1_jobs()
-{
+
+_PS1_jobs() {
 	output=''
 	local rjobs="$(jobs -r | wc -l)"
 	if test "$rjobs" -ne '0'; then
@@ -75,8 +75,8 @@ _PS1_jobs()
 	fi
 	test -n "$output" && printf %s " (${output})"
 }
-_PS1_k8s()
-{
+
+_PS1_k8s() {
 	# kubectx:kubens if there is one.
 	test -f "${HOME}/.kube/config" || exit 1
 	local ctx ns
@@ -85,10 +85,10 @@ _PS1_k8s()
 		return 1
 	fi
 	ns="$(sed -n "/namespace/,/name: minikube/ {/namespace/p}" <"${HOME}/.kube/config" | awk '{ print $2 }')"
-	printf %s "${ctx}:${ns} "
+	printf %s " ${ctx}:${ns}"
 }
-_PS1_git()
-{
+
+_PS1_git() {
 	local output=''
 	# Git branch if a .git is found.
 	# Pure bash (meaning no forking meaning fast) alternative to __git_ps1 (100ms -> 1ms).
@@ -122,30 +122,28 @@ _PS1_git()
 	fi
 	return 1
 }
-_PS1_sudo()
-{
+
+_PS1_sudo() {
 	if command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
 		printf %s " sudo"
 	fi
 }
-_PS1_nix()
-{
+
+_PS1_nix() {
 	if test -n "$IN_NIX_SHELL"; then
 		printf %s " IN_NIX_SHELL"
 	fi
 }
-# Full example:
-# [130 1bg minikube:default user@host ~/src master(shallow)]
-# $
+
 PS1+='['
 PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)" # Can't do `command -v` here, would change $?.
 PS1+="\[$(tput sgr0 setaf 2 bold  )\]\u@\H"
 PS1+="\[$(tput sgr0 setaf 4 bold  )\] \w"
-PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"
-PS1+="\[$(tput sgr0 setaf 4       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"
-PS1+="\[$(tput sgr0 setaf 2       )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"
-PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"
-PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"
+PS1+="\[$(tput sgr0 setaf 2       )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"          # git
+PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"        # jobs
+PS1+="\[$(tput sgr0 setaf 4       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"          # k8s
+PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"          # nix
+PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"        # sudo
 PS1+="\[$(tput sgr0               )\]]\n\$ "
 export PS1
 
@@ -169,8 +167,7 @@ if command ls --version >/dev/null 2>&1; then
 	alias ls='ls -w80 --color=auto'
 fi
 
-tmp()
-{
+tmp() {
 	# cd into a personal folder within /tmp to use as a scratch workspace
 	# free of random systemd folders and things of the sort.
 	local d="${TMPDIR:-/tmp}/${USER}"
@@ -178,8 +175,7 @@ tmp()
 	cd "$d" || exit 1
 }
 
-todo()
-{
+todo() {
 	pushd ~/TODO || exit 1
 	${VISUAL:-${EDITOR:-nano}} README
 	make
@@ -254,8 +250,8 @@ esac
 # youtube-dl and yt-dlp
 export mp3='--audio-format mp3 --audio-quality 0 -x -f bestaudio --no-playlist'
 export mp3p='--audio-format mp3 --audio-quality 0 -x -f bestaudio --yes-playlist'
-alias yt-mp3="yt-dlp $mp3"
-alias yt-mp3p="yt-dlp $mp3p"
+alias yt-mp3="yt-dlp ${mp3}"
+alias yt-mp3p="yt-dlp ${mp3p}"
 
 alias clear='sleep 1; false'
 
