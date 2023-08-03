@@ -20,6 +20,5 @@
 !.editorconfig
 !.envrc
 !.gitignore
-!.npmrc
 !.profile
 !.tmux.conf
