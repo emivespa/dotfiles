@@ -90,7 +90,7 @@ hi link @lsp.type.variable       NONE " hi default link @lsp.type.variable Ident
 hi @error ctermfg=1
 " hi @punctuation cterm=bold
 
-" " hi clear Comment
-" hi Comment ctermfg=12
+" hi clear Comment
+" hi Comment ctermfg=8
 " hi clear String
-" hi String ctermfg=9
+" hi String ctermfg=7

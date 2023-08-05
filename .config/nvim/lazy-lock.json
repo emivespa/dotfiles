@@ -18,9 +18,10 @@
   "nvim-treesitter-context": { "branch": "master", "commit": "6f8f788738b968f24a108ee599c5be0031f94f06" },
   "nvim-ts-autotag": { "branch": "main", "commit": "6be1192965df35f94b8ea6d323354f7dc7a557e4" },
   "plenary.nvim": { "branch": "master", "commit": "267282a9ce242bbb0c5dc31445b6d353bed978bb" },
-  "prot16-vim": { "branch": "master", "commit": "2d5ad6026f6ea56b5ad663fba4c71de60e04c118" },
+  "rainbow-delimiters.nvim": { "branch": "master", "commit": "f6bcc8d1b31702edcf3852f531bdab8191c7c5f0" },
   "telescope-fzf-native": { "branch": "main", "commit": "9bc8237565ded606e6c366a71c64c0af25cd7a50" },
   "telescope.nvim": { "branch": "master", "commit": "776b509f80dd49d8205b9b0d94485568236d1192" },
   "treesitter": { "branch": "master", "commit": "1c79da3300951e934f635eaf8703480b57644e7e" },
-  "ts-context-commentstring": { "branch": "main", "commit": "e9062e2dfb9854e6a927370f2d720de354c88524" }
+  "ts-context-commentstring": { "branch": "main", "commit": "e9062e2dfb9854e6a927370f2d720de354c88524" },
+  "vim-gitgutter": { "branch": "main", "commit": "68f16eb21f371bf77161c2c8ea9ff431cab2d314" }
 }
