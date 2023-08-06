@@ -1085,17 +1085,12 @@ hi default link NvimDoubleQuotedUnknownEscape NvimInvalidValue
 "   { NULL, 0 },
 " };
 " diff* colors to emulate `git show`:
-"
-" - best-effort, might be missing something
-" - currently not touching gitHead
-hi diffFile       cterm=bold ctermfg=none
-hi diffIndexLine  cterm=bold ctermfg=none
-hi diffOldFile    cterm=bold ctermfg=none
-hi diffNewFile    cterm=bold ctermfg=none
-hi diffLine       ctermfg=6
-hi diffSubname    cterm=none ctermfg=none
-hi diffAdded      ctermfg=2
-hi diffRemoved    ctermfg=9
+
+hi DiffAdd     ctermfg=2 ctermbg=none
+" hi DiffChange  ctermfg=3 ctermbg=none
+hi DiffChange  ctermfg=2 ctermbg=none
+hi DiffDelete  ctermfg=1 ctermbg=none
+hi DiffText    ctermfg=0 ctermbg=none  cterm=bold
 
 " Pmenu colors that don't suck like the defaults:
 hi clear Pmenu

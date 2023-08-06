@@ -99,23 +99,23 @@ return {
 		end,
 	},
 
-	{
-		-- rainbow-delimiters
-		"https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
-		dependencies = { "treesitter", },
-		config = function()
-			require('rainbow-delimiters.setup')({
-				highlight = {
-					'RainbowDelimiterRed',
-					'RainbowDelimiterGreen',
-					'RainbowDelimiterYellow',
-					'RainbowDelimiterBlue',
-					'RainbowDelimiterViolet',
-					'RainbowDelimiterCyan',
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	-- rainbow-delimiters
+	-- 	"https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+	-- 	dependencies = { "treesitter", },
+	-- 	config = function()
+	-- 		require('rainbow-delimiters.setup')({
+	-- 			highlight = {
+	-- 				'RainbowDelimiterRed',
+	-- 				'RainbowDelimiterGreen',
+	-- 				'RainbowDelimiterYellow',
+	-- 				'RainbowDelimiterBlue',
+	-- 				'RainbowDelimiterViolet',
+	-- 				'RainbowDelimiterCyan',
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- {
 	-- 	-- textobjects

@@ -18,6 +18,7 @@
   "nvim-autopairs": { "branch": "master", "commit": "ae5b41ce880a6d850055e262d6dfebd362bb276e" },
   "nvim-treesitter-context": { "branch": "master", "commit": "6f8f788738b968f24a108ee599c5be0031f94f06" },
   "nvim-ts-autotag": { "branch": "main", "commit": "6be1192965df35f94b8ea6d323354f7dc7a557e4" },
+  "onedark.vim": { "branch": "main", "commit": "57b77747694ea5676c3ca0eeaf9567dc499730c0" },
   "plenary.nvim": { "branch": "master", "commit": "267282a9ce242bbb0c5dc31445b6d353bed978bb" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "f6bcc8d1b31702edcf3852f531bdab8191c7c5f0" },
   "telescope-fzf-native": { "branch": "main", "commit": "9bc8237565ded606e6c366a71c64c0af25cd7a50" },
