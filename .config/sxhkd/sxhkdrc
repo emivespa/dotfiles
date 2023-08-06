@@ -1,3 +1,6 @@
+super + x
+	xterm
+
 ctrl + alt + s
  	pkill -usr1 -x sxhkd
 
