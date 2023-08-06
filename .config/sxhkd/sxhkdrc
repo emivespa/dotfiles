@@ -1,0 +1,11 @@
+ctrl + alt + s
+ 	pkill -usr1 -x sxhkd
+
+ctrl + alt + t
+	xterm
+
+ctrl + alt + v
+	viclip
+
+ctrl + shift + d
+	fmenu_run

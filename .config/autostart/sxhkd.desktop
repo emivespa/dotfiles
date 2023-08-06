@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=sxhkd
+Comment=Simple X hotkey daemon
+Exec=/run/current-system/sw/bin/sxhkd
+Terminal=false
+Type=Application
