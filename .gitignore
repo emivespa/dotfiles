@@ -9,10 +9,16 @@
 !.Xresources
 !.bashrc
 !.config
+!.config/autostart
+!.config/autostart/**
+!.config/home-manager
+!.config/home-manager/**
 !.config/nextjs-nodejs
 !.config/nextjs-nodejs/**
 !.config/nvim
 !.config/nvim/**
+!.config/sxhkd
+!.config/sxhkd/**
 !.config/youtube-dl
 !.config/youtube-dl/**
 !.config/yt-dlp
