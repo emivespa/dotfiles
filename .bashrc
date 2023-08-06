@@ -34,6 +34,11 @@ esac
 
 # env
 
+secrets="${HOME}/.env"
+if test -f "${secrets}"; then
+	\. "${secrets}"
+fi
+
 export HISTCONTROL=ignorespace
 export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
 export HISTFILESIZE='' HISTSIZE='' # Eternal bash history because why not.
@@ -139,11 +144,11 @@ PS1+='['
 PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)" # Can't do `command -v` here, would change $?.
 PS1+="\[$(tput sgr0 setaf 2 bold  )\]\u@\H"
 PS1+="\[$(tput sgr0 setaf 4 bold  )\] \w"
-PS1+="\[$(tput sgr0 setaf 2       )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"          # git
-PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"        # jobs
-PS1+="\[$(tput sgr0 setaf 4       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"          # k8s
-PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"          # nix
-PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"        # sudo
+PS1+="\[$(tput sgr0 setaf 2  )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"    # git
+PS1+="\[$(tput sgr0 setaf 3  )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"  # jobs
+PS1+="\[$(tput sgr0 setaf 4  )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"    # k8s
+PS1+="\[$(tput sgr0 setaf 6  )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"    # nix
+PS1+="\[$(tput sgr0 setaf 5  )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"  # sudo
 PS1+="\[$(tput sgr0               )\]]\n\$ "
 export PS1
 
