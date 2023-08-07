@@ -24,9 +24,6 @@ return {
 					prompt_position = 'top',
 					sorting_strategy = 'ascending',
 					borderchars = {
-						-- prompt =   { "-", "|", "-", "|", "+", "+", "+", "+" },
-						-- results =  { "-", "|", "-", "|", "+", "+", "+", "+" },
-						-- preview =  { "-", "|", "-", "|", "+", "+", "+", "+" },
 						prompt =   { " ", " ", " ", " ", " ", " ", " ", " " },
 						results =  { " ", " ", " ", " ", " ", " ", " ", " " },
 						preview =  { " ", " ", " ", " ", " ", " ", " ", " " },

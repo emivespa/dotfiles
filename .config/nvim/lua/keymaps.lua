@@ -3,6 +3,7 @@ vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<leader>i", [[:Inspect<cr>]])
 vim.keymap.set("n", "<leader>I", [[:InspectTree<cr>]])
+vim.keymap.set("n", "<leader>v", [[:vert<space>]])
 
 -- <c-q> closes buffer
 vim.keymap.set('n', '<c-q>', ':bwipeout<cr>') -- Close buffer.

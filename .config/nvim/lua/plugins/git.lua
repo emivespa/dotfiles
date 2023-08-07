@@ -12,7 +12,7 @@ return {
 					changedelete  = { text = '~' },  -- changedelete  = { text = '~' },
 					untracked     = { text = '?' },  -- untracked     = { text = '┆' },
 				},
-				-- word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+				-- word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff` -- TODO: fix styles.
 				current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
 				current_line_blame_opts = {
 					virt_text = true,
@@ -52,6 +52,11 @@ return {
 					vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 				end,
 			})
+			-- vim.cmd([[
+			-- 	hi link GitSignsDeleteInline NONE | hi GitSignsDeleteInline cterm=bold
+			-- 	hi link GitSignsAddInline NONE | hi GitSignsAddInline cterm=bold
+			-- 	hi link GitSignsChangeInline NONE | hi GitSignsChangeInline cterm=bold
+			-- ]])
 		end,
 	},
 }

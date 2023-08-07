@@ -238,8 +238,8 @@ return {
 					-- python
 					null_ls.builtins.formatting.blackd,
 					-- shellcheck
-					null_ls.builtins.code_actions.shellcheck,
-					null_ls.builtins.diagnostics.shellcheck,
+					-- null_ls.builtins.code_actions.shellcheck,
+					-- null_ls.builtins.diagnostics.shellcheck,
 					-- terraform
 					null_ls.builtins.diagnostics.terraform_validate,
 					null_ls.builtins.diagnostics.tfsec,
