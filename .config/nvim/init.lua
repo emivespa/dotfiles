@@ -25,8 +25,8 @@ else
 			rtp = {
 				disabled_plugins = {
 					"gzip",
-					"matchit",
-					"matchparen",
+					-- "matchit",
+					-- "matchparen",
 					-- "netrwPlugin",
 					"tarPlugin",
 					"tohtml",
