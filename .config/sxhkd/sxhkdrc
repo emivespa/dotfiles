@@ -1,5 +1,5 @@
-super + x
-	xterm
+ctrl + alt + n
+	enhe
 
 ctrl + alt + s
  	pkill -usr1 -x sxhkd
