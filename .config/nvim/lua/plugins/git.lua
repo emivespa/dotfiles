@@ -5,12 +5,12 @@ return {
 			local gitsigns = require('gitsigns')
 			gitsigns.setup({
 				signs = {
-					add          = { text = '+' },     -- add          = { text = '│' },
-					change       = { text = '~' },     -- change       = { text = '│' },
-					delete       = { text = '_' },     -- delete       = { text = '_' },
-					topdelete    = { text = '‾' },     -- topdelete    = { text = '‾' },
-					changedelete = { text = '~' },     -- changedelete = { text = '~' },
-					untracked    = { text = '?' },     -- untracked    = { text = '┆' },
+					add           = { text = '+' },  -- add           = { text = '│' },
+					change        = { text = '~' },  -- change        = { text = '│' },
+					delete        = { text = '_' },  -- delete        = { text = '_' },
+					topdelete     = { text = '‾' },  -- topdelete     = { text = '‾' },
+					changedelete  = { text = '~' },  -- changedelete  = { text = '~' },
+					untracked     = { text = '?' },  -- untracked     = { text = '┆' },
 				},
 				-- word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
 				current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
@@ -20,8 +20,9 @@ return {
 					delay = 1000,
 				},
 				current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-				show_deleted = true,
+				-- signcolumn = false,
 				linehl = true,
+				show_deleted = true,
 				on_attach = function(bufnr)
 					vim.keymap.set('n', ']c', function()
 						if vim.wo.diff then return ']c' end
