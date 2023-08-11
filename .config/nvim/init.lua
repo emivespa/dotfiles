@@ -6,6 +6,8 @@ vim.cmd.syntax('off') -- Explicitly disable non-tressitter syntax.
 
 -- Set colorscheme before Lazy runs:
 vim.cmd.colorscheme('custom') -- ./colors/custom.vim
+-- vim.o.termguicolors = true
+-- vim.cmd.colorscheme('quiet')
 
 require("options")
 require("keymaps")

@@ -1,6 +1,0 @@
-#!/usr/bin/env -S sed -f
-#
-# - replace brown with yellow (since that is what n-less vim did when t_Co was set to 16)
-
-s brown yellow g
-s Brown Yellow g

@@ -12,15 +12,15 @@ return {
 			telescope.setup({
 				defaults = {
 					-- border = false,
-					layout_strategy = 'horizontal',
-					layout_config = {
-						horizontal = {
-							prompt_position = 'top'
-						},
-						vertical = {
-							prompt_position = 'top'
-						},
-					},
+					layout_strategy = 'bottom_pane',
+					-- layout_config = {
+					-- 	horizontal = {
+					-- 		prompt_position = 'top'
+					-- 	},
+					-- 	vertical = {
+					-- 		prompt_position = 'top'
+					-- 	},
+					-- },
 					prompt_position = 'top',
 					sorting_strategy = 'ascending',
 					borderchars = {
@@ -52,7 +52,10 @@ return {
 			-- vim.keymap.set('n', '<c-h>', builtin.oldfiles, {}) -- not working
 			vim.keymap.set('n', '<c-t>', builtin.lsp_dynamic_workspace_symbols, {})
 			vim.keymap.set('n', '<tab>', builtin.buffers, {})
-			vim.cmd([[
+			vim.keymap.set('n', '<leader>:', builtin.command_history, {}) -- TODO: arbitrary commands.
+			vim.keymap.set('v', '<leader>:', builtin.command_history, {})
+			vim.cmd(
+				[[
 				hi clear TelescopeNormal
 				hi link TelescopeNormal Pmenu
 				hi clear TelescopeSelection
@@ -61,7 +64,8 @@ return {
 				hi link TelescopeMatching Search
 				" hi clear TelescopeBorder
 				" hi link TelescopeBorder Pmenu
-				]])
+				]]
+			)
 		end,
 	},
 

@@ -16,13 +16,12 @@ return {
 				current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
 				current_line_blame_opts = {
 					virt_text = true,
-					virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+					virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
 					delay = 1000,
 				},
 				current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-				-- signcolumn = false,
-				linehl = true,
-				show_deleted = true,
+				linehl = false,
+				show_deleted = false,
 				on_attach = function(bufnr)
 					vim.keymap.set('n', ']c', function()
 						if vim.wo.diff then return ']c' end
@@ -47,7 +46,8 @@ return {
 					vim.keymap.set('n', '<leader>tb', gitsigns.toggle_current_line_blame)
 					vim.keymap.set('n', '<leader>hd', gitsigns.diffthis)
 					vim.keymap.set('n', '<leader>hD', function() gitsigns.diffthis('~') end)
-					vim.keymap.set('n', '<leader>td', gitsigns.toggle_deleted)
+					-- vim.keymap.set('n', '<leader>td', function() gitsigns.toggle_deleted(nil) gitsigns.toggle_linehl(nil) end)
+					vim.keymap.set('n', '<leader>d', function() gitsigns.toggle_deleted(nil) gitsigns.toggle_linehl(nil) end)
 					-- Text object
 					vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 				end,

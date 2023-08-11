@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-./ungui | ./brown2yellow | ./colors2ansi | sed 's/explicit/ansi/'
-# ./brown2yellow | ./colors2ansi | sed 's/explicit/ansi/'
