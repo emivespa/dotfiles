@@ -10,7 +10,7 @@
 
 export DOTPROFILE_LOADED=1
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 # env
 
@@ -19,6 +19,7 @@ export LANG=en_US.UTF-8
 export LC_COLLATE=C # Sort asciibetically.
 # export LC_TIME=en_DK.UTF-8 # ISO 8601 YYYY-MM-DD dates.
 export PAGER=less
+export TERMINAL=xterm # Non standard.
 
 BROWSER=firefox # Fallback, but it's a snap on Ubuntu, so prefer firefox-esr:
 if command -v firefox-esr >/dev/null 2>&1; then
@@ -56,12 +57,11 @@ export MANSECT='1posix:1:n:l:8:3posix:3:0:2:3pm:3perl:3am:5:4:9:6:7posix:7'
 	# Default but search Nposix before N.
 export MANWIDTH='80'
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 # program-specific
 
 export DO_NOT_TRACK=1  # https://consoledonottrack.com/
-# export NO_COLOR=1      # https://no-color.org/
 
 # FZF
 export FZF_DEFAULT_OPTS='-i --color=16 --layout=reverse'
@@ -84,6 +84,6 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 return # Rude installs will append to your .profile.
