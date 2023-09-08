@@ -1,59 +1,58 @@
 ! xrdb ~/.Xresources
 
-! ## *
-
-*font: xft:Menlo:size=11
-
-! Modded Asciinema theme:
-! - #fff on #000
-! - correct hierarchy of 0, 7, 8, 15, background and foreground
-!   - darkest to lightest: background, 0, 8, 7, 15, foreground
-!
-*background:  #000000
-*foreground:  #ffffff
-*color0:      #121314
-*color1:      #dd3c69
-*color2:      #4ebf22
-*color3:      #ddaf3c
-*color4:      #26b0d7
-*color5:      #b954e1
-*color6:      #54e1b9
-*color7:      #cccccc
-*color8:      #4d4d4d
-*color9:      #dd3c69
-*color10:     #4ebf22
-*color11:     #ddaf3c
-*color12:     #26b0d7
-*color13:     #b954e1
-*color14:     #54e1b9
-*color15:     #d9d9d9
+! --------------------------------------------------------------------------------
 
 ! ## urxvt
 !
 ! https://wiki.archlinux.org/title/Rxvt-unicode
 
 urxvt.clipboard.autocopy: true
-! urxvt.cutchars: space, tab, tmux box drawing pipe:
-urxvt.cutchars: " 	│"
 urxvt.scrollBar: false
+
+! Only cut on whitespace and Tmux's box drawing pipe:
+urxvt.cutchars: " 	│"
+
+! --------------------------------------------------------------------------------
 
 ! ## xterm
 !
 ! https://wiki.archlinux.org/title/Xterm
+!
+! TODO: https://vermaden.wordpress.com/2021/05/19/freebsd-desktop-part-25-configuration-random-terminal-theme/
 
-! Make xterm usable:
-! - utf-8 support:
-!   -  https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8
-! - alt works as expected
-! - ctrl-shift-x/c/v work as expected
-XTerm.utf8: 2
+XTerm.Maximized: true
+XTerm.vt100.Geometry: 80x24
+XTerm.vt100.cursorBlink: never
+XTerm.vt100.font: xft:Go Mono:size=11
+
+! Colors, "Selenized high contrast dark":
+XTerm.vt100.background:  #103c48
+XTerm.vt100.color0:      #103c48
+XTerm.vt100.color1:      #ed4a46
+XTerm.vt100.color2:      #70b433
+XTerm.vt100.color3:      #dbb32d
+XTerm.vt100.color4:      #368aeb
+XTerm.vt100.color5:      #eb6eb7
+XTerm.vt100.color6:      #3fc5b7
+XTerm.vt100.color7:      #72898f
+XTerm.vt100.color8:      #2d5b69
+XTerm.vt100.color9:      #ff5e56
+XTerm.vt100.color10:     #83c746
+XTerm.vt100.color11:     #efc541
+XTerm.vt100.color12:     #4f9cfe
+XTerm.vt100.color13:     #ff81ca
+XTerm.vt100.color14:     #56d8c9
+XTerm.vt100.color15:     #dedede
+XTerm.vt100.foreground:  #dedede
+
+! Have Alt work as espected:
 XTerm.vt100.metaSendsEscape: true
-! Make Ctrl+Shift+x/c/v work as expected:
+
+! Have Ctrl+Shift+x/c/v work as expected:
 XTerm.VT100.Translations: #override\n\
 	Shift Ctrl <KeyPress> x: cut-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> c: copy-selection(CLIPBOARD)\n\
 	Shift Ctrl <KeyPress> v: insert-selection(CLIPBOARD)\n
 
-XTerm.Maximized: true
-XTerm.VT100.Geometry: 80x25
-XTerm.VT100.cursorBlink: never
+! Support UTF-8 <https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8>:
+XTerm.utf8: 2
