@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=fmenu_run
+Exec=/home/nixos/bin/fmenu_run
+Type=Application
+MimeType=x-scheme-handler/eclipse+command;
