@@ -81,6 +81,16 @@ return {
 	{ "https://github.com/hrsh7th/cmp-emoji", dependencies = { "cmp" } },
 	{ "https://github.com/hrsh7th/cmp-nvim-lsp", dependencies = { "cmp", "lspconfig" } },
 	{ "https://github.com/hrsh7th/cmp-path", dependencies = { "cmp" } },
+	{ "https://github.com/zbirenbaum/copilot-cmp", dependencies = { "cmp", "copilot.lua" } },
+
+	{
+		-- copilot.lua
+		"https://github.com/zbirenbaum/copilot.lua",
+		name = "copilot.lua",
+		config = function()
+			require("copilot").setup({})
+		end,
+	},
 
 	{
 		-- lspconfig
@@ -99,17 +109,18 @@ return {
 			lspconfig.lua_ls.setup{}
 			lspconfig.pyright.setup {}
 			lspconfig.terraformls.setup{}
-			lspconfig.lua_ls.setup({
-				-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
-				settings = {
-					Lua = {
-						runtime = { version = 'LuaJIT' },
-						diagnostics = { globals = {'vim'}, },
-						workspace = { library = vim.api.nvim_get_runtime_file("", true), },
-						telemetry = { enable = false, },
-					},
-				},
-			})
+			lspconfig.lua_ls.setup({})
+			-- lspconfig.lua_ls.setup({
+			-- 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
+			-- 	settings = {
+			-- 		Lua = {
+			-- 			runtime = { version = 'LuaJIT' },
+			-- 			diagnostics = { globals = {'vim'}, },
+			-- 			workspace = { library = vim.api.nvim_get_runtime_file("", true), },
+			-- 			telemetry = { enable = false, },
+			-- 		},
+			-- 	},
+			-- })
 			-- docker
 			lspconfig.docker_compose_language_service.setup{}
 			lspconfig.dockerls.setup{}
@@ -148,16 +159,16 @@ return {
 					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 					vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-					vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-					vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-					vim.keymap.set('n', '<space>wl', function()
+					vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+					vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+					vim.keymap.set('n', '<leader>wl', function()
 						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 					end, opts)
-					vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-					vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-					vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+					vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+					vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+					vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
 					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-					vim.keymap.set('n', '<space>f', function()
+					vim.keymap.set('n', '<leader>f', function()
 						vim.lsp.buf.format { async = true }
 					end, opts)
 				end,

@@ -12,15 +12,11 @@ return {
 			telescope.setup({
 				defaults = {
 					-- border = false,
-					layout_strategy = 'bottom_pane',
-					-- layout_config = {
-					-- 	horizontal = {
-					-- 		prompt_position = 'top'
-					-- 	},
-					-- 	vertical = {
-					-- 		prompt_position = 'top'
-					-- 	},
-					-- },
+					-- layout_strategy = 'bottom_pane',
+					layout_config = {
+						horizontal = { prompt_position = 'top' },
+						vertical = { prompt_position = 'top' },
+					},
 					prompt_position = 'top',
 					sorting_strategy = 'ascending',
 					borderchars = {
@@ -36,22 +32,22 @@ return {
 						override_generic_sorter = true,  -- override the generic sorter
 						override_file_sorter = true,     -- override the file sorter
 						-- case_mode = "smart_case",        -- or "ignore_case" or "respect_case" the default case_mode is "smart_case"
-						case_mode = "ignore_case",        -- or "ignore_case" or "respect_case" the default case_mode is "smart_case"
+						case_mode = "respect_case",        -- or "ignore_case" or "respect_case" the default case_mode is "smart_case"
 					},
 				},
 			})
 			telescope.load_extension('fzf')
 			local builtin = require('telescope.builtin')
-			local themes = require('telescope.themes')
-			-- vim.keymap.set('n', '<c-p>', builtin.find_files, {})
-			vim.keymap.set('n', '<c-p>', builtin.git_files, {})
+			vim.keymap.set('n', '<c-p>', builtin.find_files, {})
+			-- vim.keymap.set('n', '<c-p>', builtin.git_files, {})
 			vim.keymap.set('n', '<c-g>', builtin.live_grep, {})
 			-- vim.keymap.set('n', '<c-B>', builtin.buffers, {})
 			vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
-			vim.keymap.set('n', '<c-k>', builtin.commands, {})
+			vim.keymap.set('n', '<leader>k', builtin.commands, {})
 			-- vim.keymap.set('n', '<c-h>', builtin.oldfiles, {}) -- not working
-			vim.keymap.set('n', '<c-t>', builtin.lsp_dynamic_workspace_symbols, {})
-			vim.keymap.set('n', '<tab>', builtin.buffers, {})
+			vim.keymap.set('n', '<c-t>', builtin.lsp_workspace_symbols, {})
+			vim.keymap.set('n', [[']], builtin.lsp_document_symbols, {})
+			-- vim.keymap.set('n', '<tab>', builtin.buffers, {})
 			vim.keymap.set('n', '<leader>:', builtin.command_history, {}) -- TODO: arbitrary commands.
 			vim.keymap.set('v', '<leader>:', builtin.command_history, {})
 			vim.cmd(

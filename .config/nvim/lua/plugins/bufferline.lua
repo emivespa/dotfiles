@@ -1,4 +1,5 @@
 return {
+	"https://github.com/joshdick/onedark.vim",
 	{
 		-- bufferline
 		"https://github.com/akinsho/bufferline.nvim",
@@ -11,7 +12,7 @@ return {
 					diagnostics = 'nvim_lsp',
 					numbers = "ordinal",
 					sort_by = 'insert_at_end',
-					tab_size = 16,
+					tab_size = 0,
 					-- Disable most styling:
 					indicator = {
 						style = 'none',
@@ -45,7 +46,7 @@ return {
 					error_diagnostic_visible     = { ctermbg = 8, },
 					error_visible                = { ctermbg = 8, },
 					-- fill                         = { ctermbg = 8, },
-					fill                         = { ctermbg = 15, },
+					fill                         = { ctermbg = 7, },
 					hint                         = { ctermbg = 8, },
 					hint_diagnostic              = { ctermbg = 8, },
 					hint_diagnostic_visible      = { ctermbg = 8, },

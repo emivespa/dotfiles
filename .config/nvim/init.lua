@@ -1,13 +1,16 @@
--- Emulate `set t_Co=16`:
+-- TODO: Lua LSP.
+-- TODO: redo keybinds.
+
+-- Emulame `set t_Co=16`:
 local ffi=require("ffi")
 ffi.cdef("int t_colors")
 ffi.C.t_colors = 16
-vim.cmd.syntax('off') -- Explicitly disable non-tressitter syntax.
 
 -- Set colorscheme before Lazy runs:
 vim.cmd.colorscheme('custom') -- ./colors/custom.vim
 -- vim.o.termguicolors = true
 -- vim.cmd.colorscheme('quiet')
+-- vim.cmd.syntax('off')
 
 require("options")
 require("keymaps")

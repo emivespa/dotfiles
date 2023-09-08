@@ -19,13 +19,13 @@ hi clear Pmenu
 hi clear PmenuSel
 if &background == 'light'
 	hi Pmenu ctermbg=7 ctermfg=0
-	" hi PmenuSel ctermbg=5 ctermfg=0 cterm=bold
-	hi PmenuSel ctermbg=5 ctermfg=15 cterm=bold
+	hi PmenuSel ctermbg=8 ctermfg=15
 else
 	hi Pmenu ctermbg=8 ctermfg=15
-	" hi PmenuSel ctermbg=5 ctermfg=15 cterm=bold
-	hi PmenuSel ctermbg=5 ctermfg=0 cterm=bold
+	hi PmenuSel ctermbg=7 ctermfg=0
 endif
+hi clear PmenuSbar | hi link PmenuSbar Pmenu
+hi clear PmenuThumb | hi link PmenuThumb PmenuSel
 
 " SignColumn colors consistent with LineNr:
 hi clear SignColumn
@@ -35,11 +35,11 @@ hi link SignColumn LineNr
 hi clear StatusLine
 hi clear StatusLineNC
 if &background == 'light'
-	hi StatusLine ctermbg=15 cterm=bold,reverse
-	hi StatusLineNC ctermbg=15 ctermfg=8 cterm=reverse
+	hi StatusLine ctermbg=8 ctermfg=15
+	hi StatusLineNC ctermbg=7 ctermfg=0
 else
-	hi StatusLine ctermbg=0 cterm=bold,reverse
-	hi StatusLineNC ctermbg=0 ctermfg=7 cterm=reverse
+	hi StatusLine ctermbg=7 ctermfg=0
+	hi StatusLineNC ctermbg=8 ctermfg=15
 endif
 " Clear all except some:
 
@@ -69,10 +69,10 @@ hi link @punctuation  NONE " hi default link @punctuation Delimiter
 
 " " Constants                " " Constants
 hi link @constant           NONE " hi default link @constant Constant
-" hi link @constant.builtin   NONE " hi default link @constant.builtin Special
-" hi link @constant.macro     NONE " hi default link @constant.macro Define
-" hi link @define             NONE " hi default link @define Define
-" hi link @macro              NONE " hi default link @macro Macro
+hi link @constant.builtin   NONE " hi default link @constant.builtin Special
+hi link @constant.macro     NONE " hi default link @constant.macro Define
+hi link @define             NONE " hi default link @define Define
+hi link @macro              NONE " hi default link @macro Macro
 " hi link @string             NONE " hi default link @string String
 " hi link @string.escape      NONE " hi default link @string.escape SpecialChar
 " hi link @string.special     NONE " hi default link @string.special SpecialChar
@@ -95,7 +95,7 @@ hi link @constructor       NONE " hi default link @constructor Special
 " " Keywords           " " Keywords
 hi link @conditional  NONE " hi default link @conditional Conditional
 hi link @repeat       NONE " hi default link @repeat Repeat
-" hi link @label        NONE " hi default link @label Label
+hi link @label        NONE " hi default link @label Label
 hi link @operator     NONE " hi default link @operator Operator
 hi link @keyword      NONE " hi default link @keyword Keyword
 hi link @exception    NONE " hi default link @exception Exception
@@ -105,9 +105,9 @@ hi link @type             NONE " hi default link @type Type
 hi link @type.definition  NONE " hi default link @type.definition Typedef
 hi link @storageclass     NONE " hi default link @storageclass StorageClass
 hi link @namespace        NONE " hi default link @namespace Identifier
-" hi link @include          NONE " hi default link @include Include
-" hi link @preproc          NONE " hi default link @preproc PreProc
-" hi link @debug            NONE " hi default link @debug Debug
+hi link @include          NONE " hi default link @include Include
+hi link @preproc          NONE " hi default link @preproc PreProc
+hi link @debug            NONE " hi default link @debug Debug
 hi link @tag              NONE " hi default link @tag Tag
 
 " " LSP semantic tokens           " " LSP semantic tokens

@@ -11,7 +11,7 @@ return {
 				-- https://github.com/nvim-treesitter/nvim-treesitter#modules
 				sync_install = false,
 				auto_install = true,
-			highlight = { enable = true },
+				highlight = { enable = true },
 				indent = { enable = true },
 				-- https://github.com/nvim-treesitter/nvim-treesitter#incremental-selection
 				incremental_selection = {
@@ -87,15 +87,16 @@ return {
 			require("treesitter-context").setup({
 				min_window_height = 24,
 				mode = "topline", -- 'cursor' is distracting.
-				separator = '-',
+				-- separator = '-',
 			})
 			vim.cmd([[
 				hi clear TreesitterContext
-				" hi link TreesitterContext Pmenu
+				hi link TreesitterContext Pmenu
+
 				" hi link TreesitterContext LineNr
-				hi link TreesitterContext Normal
-				hi clear TreesitterContextSeparator
-				hi link TreesitterContextSeparator LineNr
+				" hi link TreesitterContext Normal
+				" hi clear TreesitterContextSeparator
+				" hi link TreesitterContextSeparator LineNr
 				]])
 		end,
 	},
