@@ -3,15 +3,17 @@
 # /etc/bash.bashrc
 # /etc/skel/.bashrc
 
-if test "$DOTPROFILE_LOADED" = ''; then
-	. "${HOME}/.profile"
-fi
-
 case "$-" in
 	(*'i'*) ;;
 	(*) return ;;
 esac
 
+# Make sure .profile is loaded:
+if test "$DOTPROFILE_LOADED" = ''; then
+	. "${HOME}/.profile"
+fi
+
+# Run tmux if not within it:
 if [ -z "$TMUX" ] && [ "$TERM" != 'dumb' ]; then
 	orphan="$(tmux "ls" | grep -v 'attached' | head -n1 | sed -E 's/:.*//')"
 	exec tmux new -A -s"${orphan:-"$(date +'%H%M%S')"}"
@@ -30,7 +32,7 @@ case "$(uname -n)" in
 		;;
 esac
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 # env
 
@@ -45,7 +47,7 @@ export HISTFILESIZE='' HISTSIZE='' # Eternal bash history because why not.
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 # prompt
 #
@@ -141,18 +143,18 @@ _PS1_nix() {
 }
 
 PS1+='['
-PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)" # Can't do `command -v` here, would change $?.
+PS1+="\[$(tput sgr0 setaf 1       )\]\$(_PS1_ex 2>/dev/null)"
 PS1+="\[$(tput sgr0 setaf 2 bold  )\]\u@\H"
 PS1+="\[$(tput sgr0 setaf 4 bold  )\] \w"
-PS1+="\[$(tput sgr0 setaf 2  )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"    # git
-PS1+="\[$(tput sgr0 setaf 3  )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"  # jobs
-PS1+="\[$(tput sgr0 setaf 4  )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"    # k8s
-PS1+="\[$(tput sgr0 setaf 6  )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"    # nix
-PS1+="\[$(tput sgr0 setaf 5  )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"  # sudo
+PS1+="\[$(tput sgr0 setaf 2       )\]\$(command -v _PS1_git >/dev/null 2>&1 && _PS1_git)"    # git
+PS1+="\[$(tput sgr0 setaf 3       )\]\$(command -v _PS1_jobs >/dev/null 2>&1 && _PS1_jobs)"  # jobs
+PS1+="\[$(tput sgr0 setaf 4       )\]\$(command -v _PS1_k8s >/dev/null 2>&1 && _PS1_k8s)"    # k8s
+PS1+="\[$(tput sgr0 setaf 6       )\]\$(command -v _PS1_nix >/dev/null 2>&1 && _PS1_nix)"    # nix
+PS1+="\[$(tput sgr0 setaf 5       )\]\$(command -v _PS1_sudo >/dev/null 2>&1 && _PS1_sudo)"  # sudo
 PS1+="\[$(tput sgr0               )\]]\n\$ "
 export PS1
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 # aliases and functions
 
@@ -181,13 +183,14 @@ tmp() {
 }
 
 todo() {
-	pushd ~/TODO || exit 1
-	${VISUAL:-${EDITOR:-nano}} README
-	make
-	popd || exit 1
+	(
+		cd ~/TODO || exit 1
+		${VISUAL:-${EDITOR:-nano}} README
+		make
+	)
 }
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 # program-specific
 
@@ -236,11 +239,11 @@ export draml='--dry-run=client -o yaml'
 # fnm
 #
 # (Faster alternative, <https://github.com/Schniz/fnm>.)
-FNM_PATH="${HOME}/.local/share/fnm"
-if test -d "${FNM_PATH}"; then
-	export PATH="${HOME}/.local/share/fnm:${PATH}"
-	eval "$(fnm env)"
-fi
+# FNM_PATH="${HOME}/.local/share/fnm"
+# if test -d "${FNM_PATH}"; then
+# 	export PATH="${HOME}/.local/share/fnm:${PATH}"
+# 	eval "$(fnm env)"
+# fi
 
 # pnpm
 export PNPM_HOME="/home/pilcha/.local/share/pnpm"
@@ -260,6 +263,6 @@ alias yt-mp3p="yt-dlp ${mp3p}"
 
 alias clear='sleep 1; false'
 
-################################################################################
+# --------------------------------------------------------------------------------
 
 return # Rude installs will append to your .bashrc.
