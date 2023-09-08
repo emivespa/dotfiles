@@ -1,14 +1,23 @@
 ctrl + alt + n
 	enhe
 
-ctrl + alt + s
+ctrl + alt + Escape
  	pkill -usr1 -x sxhkd
 
-ctrl + alt + t
-	xterm
+ctrl + alt + Return
+	xterm -maximized
 
 ctrl + alt + v
 	viclip
 
-ctrl + shift + d
+ctrl + alt + space
 	fmenu_run
+
+# TODO: volume:
+# ctrl + alt + minus
+# ctrl + alt + equals
+# ctrl + alt + 0
+
+# TODO: brightness:
+# ctrl + alt + bracketleft
+# ctrl + alt + bracketright
