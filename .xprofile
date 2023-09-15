@@ -1,0 +1,13 @@
+#!/bin/sh -eu
+
+# Determine model:
+# TODO: source.
+model="$(< /sys/devices/virtual/dmi/id/product_version) "
+model+="$(< /sys/devices/virtual/dmi/id/product_name)"
+model="${model//*O.E.M*}"
+
+if test "${model}" == ' XPS 13 9360'; then
+	if type xrandr; then
+		xrandr --output eDP-1 --mode 1600x900
+	fi
+fi

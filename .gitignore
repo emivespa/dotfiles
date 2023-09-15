@@ -28,4 +28,5 @@
 !.gitignore
 !.profile
 !.tmux.conf
+!.xprofile
 !Desktop/fmenu_run.desktop
