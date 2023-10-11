@@ -10,6 +10,9 @@ ctrl + alt + Return
 ctrl + alt + v
 	viclip
 
+ctrl + alt + w
+	wp
+
 ctrl + alt + space
 	fmenu_run
 
@@ -17,6 +20,9 @@ ctrl + alt + space
 # ctrl + alt + minus
 # ctrl + alt + equals
 # ctrl + alt + 0
+
+control + shift + meta + super + space
+	fmenu_run
 
 # TODO: brightness:
 # ctrl + alt + bracketleft
