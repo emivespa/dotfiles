@@ -1,4 +1,4 @@
-all: lazy colors/default-ansi.vim colors/custom.vim
+all: lazy
 
 .PHONY: lazy
 lazy:

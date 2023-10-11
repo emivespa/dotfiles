@@ -6,7 +6,7 @@ vim.keymap.set("n", "<leader>I", [[:InspectTree<cr>]])
 vim.keymap.set("n", "<leader>v", [[:vert<space>]])
 
 -- <c-x> closes buffer
-vim.keymap.set('n', '<c-x>', ':bwipeout<cr>') -- Close buffer.
+vim.keymap.set('n', '<c-q>', ':bwipeout<cr>') -- Close buffer.
 
 -- <tab> and <s-tab> navigate buffers:
 vim.keymap.set('n', '<tab>', ':bnext<cr>')
