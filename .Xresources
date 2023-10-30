@@ -25,26 +25,6 @@ XTerm.vt100.Geometry: 80x24
 XTerm.vt100.cursorBlink: never
 XTerm.vt100.font: xft:Go Mono:size=11
 
-! Colors, "Selenized high contrast dark":
-XTerm.vt100.background:  #103c48
-XTerm.vt100.color0:      #103c48
-XTerm.vt100.color1:      #ed4a46
-XTerm.vt100.color2:      #70b433
-XTerm.vt100.color3:      #dbb32d
-XTerm.vt100.color4:      #368aeb
-XTerm.vt100.color5:      #eb6eb7
-XTerm.vt100.color6:      #3fc5b7
-XTerm.vt100.color7:      #72898f
-XTerm.vt100.color8:      #2d5b69
-XTerm.vt100.color9:      #ff5e56
-XTerm.vt100.color10:     #83c746
-XTerm.vt100.color11:     #efc541
-XTerm.vt100.color12:     #4f9cfe
-XTerm.vt100.color13:     #ff81ca
-XTerm.vt100.color14:     #56d8c9
-XTerm.vt100.color15:     #dedede
-XTerm.vt100.foreground:  #dedede
-
 ! Have Alt work as espected:
 XTerm.vt100.metaSendsEscape: true
 
@@ -56,3 +36,23 @@ XTerm.VT100.Translations: #override\n\
 
 ! Support UTF-8 <https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8>:
 XTerm.utf8: 2
+
+! Color, "modus-vivendi" <https://protesilaos.com/emacs/modus-themes>
+xterm*background:  #000000
+xterm*color0:      #000000
+xterm*color1:      #ff8059
+xterm*color2:      #44bc44
+xterm*color3:      #d0bc00
+xterm*color4:      #2fafff
+xterm*color5:      #feacd0
+xterm*color6:      #00d3d0
+xterm*color7:      #bfbfbf
+xterm*color8:      #595959
+xterm*color9:      #ef8b50
+xterm*color10:     #70b900
+xterm*color11:     #c0c530
+xterm*color12:     #79a8ff
+xterm*color13:     #b6a0ff
+xterm*color14:     #6ae4b9
+xterm*color15:     #ffffff
+xterm*foreground:  #ffffff
