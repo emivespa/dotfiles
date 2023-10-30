@@ -18,9 +18,3 @@ case "$model" in
 		fi
 		;;
 esac
-
-case "$DESKTOP_SESSION" in
-	('none+icewm')
-		type volumeicon && volumeicon &
-		;;
-esac
