@@ -1,13 +1,26 @@
-#!/bin/sh -eu
+#!/usr/bin/env bash
 
 # Determine model:
-# TODO: source.
+# TODO: source link (xfetch).
 model="$(< /sys/devices/virtual/dmi/id/product_version) "
 model+="$(< /sys/devices/virtual/dmi/id/product_name)"
 model="${model//*O.E.M*}"
+case "$model" in
+	(' XPS 13 9360')
+		if type xrandr; then
+			if xrandr | grep 'DP-1 connected'; then
+				xrandr --output DP-1 --mode 1920x1080
+				xrandr --output eDP-1 --off
+				xrandr --output eDP-1 --same-as DP-1
+			else
+				xrandr --output eDP-1 --mode 1600x900
+			fi
+		fi
+		;;
+esac
 
-if test "${model}" == ' XPS 13 9360'; then
-	if type xrandr; then
-		xrandr --output eDP-1 --mode 1600x900
-	fi
-fi
+case "$DESKTOP_SESSION" in
+	('none+icewm')
+		type volumeicon && volumeicon &
+		;;
+esac
