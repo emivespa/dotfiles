@@ -12,7 +12,7 @@ export DOTPROFILE_LOADED=1
 
 # --------------------------------------------------------------------------------
 
-# env
+# ENV
 
 export EDITOR=vi; export VISUAL="$EDITOR"
 export LANG=en_US.UTF-8
@@ -32,12 +32,12 @@ export BROWSER
 # https://git.sr.ht/~sircmpwn/dotfiles/tree/master/item/.profile
 #
 # TODO: prevent repeats.
-PATH="${HOME}/.npm-global/bin:${PATH}"            # fake npm i -g (can't npm i -g on nix)
-PATH="${GOPATH:-${HOME}/go}/bin:${PATH}"          # go bins
-PATH="${CARGO_HOME:-${HOME}/.cargo}/bin:${PATH}"  # rust bins
-PATH="/usr/local/go/bin:${PATH}"                  # go install requires this
-PATH="${HOME}/.local/bin:${PATH}"                 # docker, pip, etc. use this
-PATH="${HOME}/bin/ignore:${PATH}"                 # personal ignored by CVS
+PATH="${HOME}/.npm-global/bin:${PATH}"              # fake npm i -g (can't npm i -g on nix)
+PATH="${GOPATH:-${HOME}/go}/bin:${PATH}"            # go bins
+PATH="${CARGO_HOME:-${HOME}/.cargo}/bin:${PATH}"    # rust bins
+PATH="/usr/local/go/bin:${PATH}"                    # go install requires this
+PATH="${HOME}/.local/bin:${PATH}"                   # docker, pip, etc. use this
+PATH="${HOME}/bin/ignore:${PATH}"                   # personal ignored by CVS
 # PATH="${HOME}/bin/$(uname -s)+$(uname -m):${PATH}"  # personal by kernel+arch
 PATH="${HOME}/bin:${PATH}"                          # personal
 export PATH
@@ -59,7 +59,7 @@ export MANWIDTH='80'
 
 # --------------------------------------------------------------------------------
 
-# program-specific
+# PROGRAM-SPECIFIC
 
 export DO_NOT_TRACK=1  # https://consoledonottrack.com/
 
@@ -76,7 +76,7 @@ export GOTELEMETRY=off
 # SAM
 export SAM_CLI_TELEMETRY=0
 
-# XDG basedir spec
+# XDG BASEDIR SPEC
 #
 # Some tools check if these variable exists to see whether you "opt in" to using
 # XDG paths, so making the defaults explicit does have an effect.

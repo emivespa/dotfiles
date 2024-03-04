@@ -3,12 +3,13 @@
 # /etc/bash.bashrc
 # /etc/skel/.bashrc
 
+# Return if shell is not interactive:
 case "$-" in
 	(*'i'*) ;;
 	(*) return ;;
 esac
 
-# Make sure .profile is loaded:
+# Make sure .profile is loaded as well:
 if test "$DOTPROFILE_LOADED" = ''; then
 	. "${HOME}/.profile"
 fi
@@ -34,7 +35,7 @@ esac
 
 # --------------------------------------------------------------------------------
 
-# env
+# ENV
 
 secrets="${HOME}/.env"
 if test -f "${secrets}"; then
@@ -42,15 +43,15 @@ if test -f "${secrets}"; then
 fi
 
 export HISTCONTROL=ignorespace
-export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
+# export HISTIGNORE='clear:ls:ls -a:pwd:git log:git status' # "Where am I?" command spam.
 export HISTFILESIZE='' HISTSIZE='' # Eternal bash history because why not.
 export HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # TODO: archive history somehow.
 
 # --------------------------------------------------------------------------------
 
-# prompt
-#
+# PROMPT
+
 PS1=''
 # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 #
@@ -68,11 +69,11 @@ _PS1_ex() {
 
 _PS1_jobs() {
 	output=''
-	local rjobs="$(jobs -r | wc -l)"
+	local rjobs; rjobs="$(jobs -r | wc -l)"
 	if test "$rjobs" -ne '0'; then
 		output="${rjobs} Running"
 	fi
-	local sjobs="$(jobs -s | wc -l)"
+	local sjobs; sjobs="$(jobs -s | wc -l)"
 	if test "$sjobs" -ne '0'; then
 		if test "$rjobs" -ne '0'; then
 			output="${output}, ${sjobs} Stopped"
@@ -113,8 +114,11 @@ _PS1_git() {
 		local head
 		read -r head <"$head_file" || return
 		case "$head" in
-			(ref:*) output="${head#ref: refs/heads/}" ;;
-			('') ;;
+			(ref:*)
+				output="${head#ref: refs/heads/}"
+				;;
+			('')
+				;;
 			(*)
 				# Detached HEAD.
 				# BUG(wontfix): stuck to 7 char short SHAs.
@@ -156,7 +160,7 @@ export PS1
 
 # --------------------------------------------------------------------------------
 
-# aliases and functions
+# ALIASES AND FUNCTIONS
 
 alias batsx='BATS_RUN_SKIPPED=true bats'
 alias dcd='docker compose down'
@@ -173,6 +177,15 @@ fi
 if command ls --version >/dev/null 2>&1; then
 	alias ls='ls -w80 --color=auto'
 fi
+
+# THINGS THAT CAN'T BE SCRIPTS
+
+tlip() {
+	if test -z "$TMUX"; then
+		return
+	fi
+	tmux capture-pane -S - -p | vi -
+}
 
 tmp() {
 	# cd into a personal folder within /tmp to use as a scratch workspace
@@ -192,15 +205,15 @@ todo() {
 
 # --------------------------------------------------------------------------------
 
-# program-specific
+# PROGRAM-SPECIFIC
 
-# aws
+# AWS
 # complete -C '/usr/local/bin/aws_completer' aws
 
-# direnv
+# DIRENV
 eval "$(direnv hook bash)"
 
-# fzf
+# FZF
 #
 # /usr/share/doc/fzf/README.Debian
 if command -v fzf-share >/dev/null; then
@@ -212,12 +225,12 @@ else
 fi
 export FZF_COMPLETION_OPTS='--height=100%'
 
-# home-manager
+# HOME-MANAGER
 #
 # TODO: should this be in ~/.profile instead?
 # . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
-# kubectl
+# KUBECTL
 # if command -v kubecolor >/dev/null 2>&1; then
 # 	alias k=kubecolor
 # fi
@@ -226,13 +239,14 @@ if command -v kubectl >/dev/null 2>&1; then
 	eval "$(kubectl completion bash)"
 	complete -o default -F __start_kubectl k
 fi
-# Shortcuts
+# SHORTCUTS
 export ow='-o wide'
 export draml='--dry-run=client -o yaml'
 
-# nvm
+# NVM
 #
-# TODO: nvm.sh noticeably slows bash startup (every solution I've seen so far breaks things in sneaky ways).
+# TODO: nvm.sh noticeably slows bash startup. Every solution I've seen so far
+# breaks things in sneaky ways.
 # export NVM_DIR="$HOME/.config/nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -245,17 +259,17 @@ export draml='--dry-run=client -o yaml'
 # 	eval "$(fnm env)"
 # fi
 
-# pnpm
-export PNPM_HOME="/home/pilcha/.local/share/pnpm"
+# PNPM
+export PNPM_HOME="/home/${USER}/.local/share/pnpm"
 case ":$PATH:" in
 	(*":$PNPM_HOME:"*) ;;
 	(*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# terraform
+# TERRAFORM
 # complete -C /home/pilcha/bin/ignore/terraform terraform
 
-# youtube-dl and yt-dlp
+# YOUTUBE-DL AND YT-DLP
 export mp3='--audio-format mp3 --audio-quality 0 -x -f bestaudio --no-playlist'
 export mp3p='--audio-format mp3 --audio-quality 0 -x -f bestaudio --yes-playlist'
 alias yt-mp3="yt-dlp ${mp3}"
