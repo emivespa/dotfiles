@@ -1,11 +1,82 @@
+; TODO:
+; https://jvns.ca/blog/2024/02/16/popular-git-config-options
+; [includeIf "gitdir:~/code/<work>/"]
+; path = "~/code/<work>/gitconfig"
+; [url "git@github.com:"]
+; 	insteadOf = "https://github.com/"
+; credential helper
+
 [alias]
-	ca = commit --amend
-	ss = status --short
-	cane = commit --amend --no-edit
-	dc = diff --cached
+	blamex-C = blame -C
+	blamex-L = blame -L
+	branchx-D = branch -D
+	clonex-filter-blob-none = clone --filter=blob:none
+	clonex-filter-tree-0 = clone --filter=tree:0
+	commitx-amend = commit --amend
+	commitx-amend-no-edit = commit --amend --no-edit
+	diffx-cached = diff --cached
+	diffx-word-diff = diff --word-diff
+	logx-L = log -L
+	logx-S = log -S
+	pushx-force-with-lease = push --force-with-lease ; "Safe" force push.
+	rebasex-i = rebase -i
+	resetx-HEAD-1 = reset HEAD~1
+	resetx-HEAD-1-hard = reset HEAD~1 --hard
+	stashx-all = stash -all
+	statusx-short = status --short
+
+[branch]
+	sort = commiterdate
+
 [commit]
-	; gpgsign = true
-	verbose = true # Include diff below commit message template.
+	; gpgsign = true ; See also 2f024ca.
+	cleanup = scissors ; Scissor (">8") based comments instead of "#".
+	verbose = true ; Include diff below commit message template.
+
+[core]
+	; autocrlf = false ; TODO: make sure OK.
+	; untrackedcache = true ; TODO: make sure OK.
+	fsmonitor = true ; Speed up git-status.
+
+[diff]
+	algorithm = histogram
+		; https://jvns.ca/blog/2024/02/16/popular-git-config-options/#diff-algorithm-histogram
+		; TODO: https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/c
+	submodule = log ; More info for submodules.
+
+[gpg]
+	format = ssh # Supposedly much simpler.
+
+[help]
+	autocorrect = prompt
+		; >WARNING: You called a Git command named 'ocmmit', which does not exist.
+		; >Run 'commit' instead [y/N]? n
+
+; [http]
+; 	followRedirects = true
+
+; [includeIf "gitdir:~/work/"]
+; 	path = ~/.work.gitconfig
+
+[log]
+	date = iso
+
+; [rerere]
+; 	enabled = true
+
+[status]
+	submoduleSummary = true ; More info for submodules.
+
+; [submodule]
+; 	recurse = true
+
+[tag]
+	; gpgsign = true ; See also 2f024ca.
+
 [user]
 	email = emivespa1@gmail.com
 	name = Emilio Vesprini
+
+; --------------------------------------------------------------------------------
+
+; Unordered stuff added by git-config:

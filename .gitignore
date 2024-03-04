@@ -23,6 +23,8 @@
 !.config/youtube-dl/**
 !.config/yt-dlp
 !.config/yt-dlp/**
+!.config/icewm
+!.config/icewm/**
 !.editorconfig
 !.envrc
 !.gitignore
