@@ -1,20 +1,22 @@
 -- TODO: Lua LSP.
 -- TODO: redo keybinds.
 
--- Emulame `set t_Co=16`:
+-- EMULATE `set t_Co=16`
 local ffi=require("ffi")
 ffi.cdef("int t_colors")
 ffi.C.t_colors = 16
 
--- Set colorscheme before Lazy runs:
+-- SET COLORSCHEME BEFORE LAZY RUNS
 vim.cmd.colorscheme('custom') -- ./colors/custom.vim
 
 require("options")
 require("keymaps")
 
+-- LAZY
+--
 -- https://github.com/folke/lazy.nvim - "zzz A modern plugin manager for Neovim"
 -- :help lazy.nvim.txt
-
+--
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({

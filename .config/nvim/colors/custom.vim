@@ -1,6 +1,6 @@
 hi clear
 
-" ## Diff
+" DIFF
 
 " Diff colors that emulate the Git CLI colors:
 hi DiffAdd     ctermfg=2 ctermbg=none
@@ -8,7 +8,7 @@ hi DiffChange  ctermfg=2 ctermbg=none
 hi DiffDelete  ctermfg=1 ctermbg=none
 hi DiffText    ctermfg=0 ctermbg=none  cterm=bold
 
-" ## UI
+" UI
 
 " MatchParen
 hi clear MatchParen
@@ -43,7 +43,7 @@ else
 endif
 " Clear all except some:
 
-" ## Syntax
+" SYNTAX
 
 " hi clear Comment
 " hi clear Constant
@@ -128,6 +128,6 @@ hi link @lsp.type.type           NONE " hi default link @lsp.type.type Type
 hi link @lsp.type.typeParameter  NONE " hi default link @lsp.type.typeParameter TypeDef
 hi link @lsp.type.variable       NONE " hi default link @lsp.type.variable Identifier
 
-" ### Custom
+" CUSTOM
 
 hi @error ctermfg=1
