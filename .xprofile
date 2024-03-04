@@ -9,9 +9,9 @@ case "$model" in
 	(' XPS 13 9360')
 		if type xrandr; then
 			if xrandr | grep 'DP-1 connected'; then
+				xrandr --output eDP-1 --mode 1920x1080
 				xrandr --output DP-1 --mode 1920x1080
-				xrandr --output eDP-1 --off
-				xrandr --output eDP-1 --same-as DP-1
+				xrandr --output DP-1 --same-as eDP-1
 			else
 				xrandr --output eDP-1 --mode 1600x900
 			fi
