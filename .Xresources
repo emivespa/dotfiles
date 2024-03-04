@@ -2,19 +2,19 @@
 
 ! --------------------------------------------------------------------------------
 
-! ## urxvt
+! URXVT
 !
 ! https://wiki.archlinux.org/title/Rxvt-unicode
 
 urxvt.clipboard.autocopy: true
 urxvt.scrollBar: false
 
-! Only cut on whitespace and Tmux's box drawing pipe:
+! Only cut on whitespace and Tmux split separators:
 urxvt.cutchars: " 	│"
 
 ! --------------------------------------------------------------------------------
 
-! ## xterm
+! XTERM
 !
 ! https://wiki.archlinux.org/title/Xterm
 !
@@ -37,22 +37,48 @@ XTerm.VT100.Translations: #override\n\
 ! Support UTF-8 <https://wiki.archlinux.org/title/Locale#My_terminal_does_not_support_UTF-8>:
 XTerm.utf8: 2
 
-! Color, "modus-vivendi" <https://protesilaos.com/emacs/modus-themes>
-xterm*background:  #000000
-xterm*color0:      #000000
-xterm*color1:      #ff8059
-xterm*color2:      #44bc44
-xterm*color3:      #d0bc00
-xterm*color4:      #2fafff
-xterm*color5:      #feacd0
-xterm*color6:      #00d3d0
-xterm*color7:      #bfbfbf
-xterm*color8:      #595959
-xterm*color9:      #ef8b50
-xterm*color10:     #70b900
-xterm*color11:     #c0c530
-xterm*color12:     #79a8ff
-xterm*color13:     #b6a0ff
-xterm*color14:     #6ae4b9
-xterm*color15:     #ffffff
-xterm*foreground:  #ffffff
+! ! Basic theme:
+! xterm*background: #000000
+! xterm*foreground: #ffffff
+
+! Theme: modus-vivendi
+! Description: XTerm port of modus-vivendi (Modus themes for GNU Emacs)
+! Author: Protesilaos Stavrou, <https://protesilaos.com>
+xterm*background: #000000
+xterm*foreground: #ffffff
+xterm*color0:     #000000
+xterm*color1:     #ff8059
+xterm*color2:     #44bc44
+xterm*color3:     #d0bc00
+xterm*color4:     #2fafff
+xterm*color5:     #feacd0
+xterm*color6:     #00d3d0
+xterm*color7:     #bfbfbf
+xterm*color8:     #595959
+xterm*color9:     #ef8b50
+xterm*color10:    #70b900
+xterm*color11:    #c0c530
+xterm*color12:    #79a8ff
+xterm*color13:    #b6a0ff
+xterm*color14:    #6ae4b9
+xterm*color15:    #ffffff
+
+! ! Theme adapted from Asciinema, some changes.
+! *background:  #000000
+! *color0:      #121314
+! *color10:     #4ebf22
+! *color11:     #ddaf3c
+! *color12:     #26b0d7
+! *color13:     #b954e1
+! *color14:     #54e1b9
+! *color15:     #d9d9d9
+! *color1:      #dd3c69
+! *color2:      #4ebf22
+! *color3:      #ddaf3c
+! *color4:      #26b0d7
+! *color5:      #b954e1
+! *color6:      #54e1b9
+! *color7:      #cccccc
+! *color8:      #4d4d4d
+! *color9:      #dd3c69
+! *foreground:  #ffffff
