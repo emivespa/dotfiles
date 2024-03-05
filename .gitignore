@@ -13,6 +13,7 @@
 !.config/autostart/**
 !.config/home-manager
 !.config/home-manager/**
+!.config/icewm/startup
 !.config/nextjs-nodejs
 !.config/nextjs-nodejs/**
 !.config/nvim
@@ -23,7 +24,6 @@
 !.config/youtube-dl/**
 !.config/yt-dlp
 !.config/yt-dlp/**
-!.config/icewm/startup
 !.editorconfig
 !.envrc
 !.gitignore
@@ -31,3 +31,4 @@
 !.tmux.conf
 !.xprofile
 !Desktop/fmenu_run.desktop
+!Makefile
